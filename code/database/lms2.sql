@@ -16,19 +16,19 @@ Date: 2022-06-28 10:54:37
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `commodity`
+-- Table structure for `goods`
 -- ----------------------------
-DROP TABLE IF EXISTS `commodity`;
-CREATE TABLE `commodity` (
-  `commodity_id` int(11) NOT NULL,
-  `commodity_name` varchar(255) NOT NULL,
-  `commodity_desc` varchar(255) DEFAULT NULL,
-  `commodity_price` int(11) NOT NULL,
-  PRIMARY KEY (`commodity_id`)
+DROP TABLE IF EXISTS `goods`;
+CREATE TABLE `goods` (
+  `goods_id` int(11) NOT NULL,
+  `goods_name` varchar(255) NOT NULL,
+  `goods_desc` varchar(255) DEFAULT NULL,
+  `goods_price` int(11) NOT NULL,
+  PRIMARY KEY (`goods_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Records of commodity
+-- Records of goods
 -- ----------------------------
 
 -- ----------------------------
@@ -112,12 +112,12 @@ DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE `inventory` (
   `inventory_id` int(11) NOT NULL AUTO_INCREMENT,
   `warehouse_id` int(11) NOT NULL,
-  `commodity_id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
   `inventory_count` int(11) NOT NULL,
   PRIMARY KEY (`inventory_id`),
   KEY `in_warehouse_id` (`warehouse_id`) USING BTREE,
-  KEY `in_commodity_id` (`commodity_id`) USING BTREE,
-  CONSTRAINT `commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON UPDATE CASCADE,
+  KEY `in_goods_id` (`goods_id`) USING BTREE,
+  CONSTRAINT `goods_id` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`goods_id`) ON UPDATE CASCADE,
   CONSTRAINT `warehouse_id` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -132,15 +132,15 @@ DROP TABLE IF EXISTS `inventory_record`;
 CREATE TABLE `inventory_record` (
   `inventory_record_id` int(11) NOT NULL AUTO_INCREMENT,
   `warehouse_id` int(11) NOT NULL,
-  `commodity_id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
   `record_created_at` datetime NOT NULL,
   `record_count` int(11) NOT NULL,
   `record_type` int(11) NOT NULL,
   `record_comments` varchar(255) DEFAULT '',
   PRIMARY KEY (`inventory_record_id`),
   KEY `warehouse_id` (`warehouse_id`) USING BTREE,
-  KEY `record_commodity_id` (`commodity_id`),
-  CONSTRAINT `record_commodity_id` FOREIGN KEY (`commodity_id`) REFERENCES `commodity` (`commodity_id`) ON UPDATE CASCADE,
+  KEY `record_goods_id` (`goods_id`),
+  CONSTRAINT `record_goods_id` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`goods_id`) ON UPDATE CASCADE,
   CONSTRAINT `record_warehouse_id` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
