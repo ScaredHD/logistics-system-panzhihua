@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2022-06-28 10:26:55
+Date: 2022-06-28 10:54:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,6 +45,46 @@ CREATE TABLE `company` (
 
 -- ----------------------------
 -- Records of company
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `delivery`
+-- ----------------------------
+DROP TABLE IF EXISTS `delivery`;
+CREATE TABLE `delivery` (
+  `deliver_id` int(11) NOT NULL AUTO_INCREMENT,
+  `driver_id` int(11) NOT NULL,
+  `vehicle_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `deliver_time` datetime NOT NULL,
+  `deliver_address` varchar(255) NOT NULL,
+  `deliver_status` int(11) NOT NULL,
+  `deliver_notice` varchar(255) NOT NULL,
+  PRIMARY KEY (`deliver_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of delivery
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `driver`
+-- ----------------------------
+DROP TABLE IF EXISTS `driver`;
+CREATE TABLE `driver` (
+  `driver_id` int(11) NOT NULL AUTO_INCREMENT,
+  `driver_name` varchar(255) NOT NULL,
+  `driver_gender` varchar(255) NOT NULL,
+  `driver_tel` varchar(255) NOT NULL,
+  `driver_license` varchar(255) NOT NULL,
+  `driver_id_card` varchar(255) NOT NULL,
+  `driver_license_score` int(11) NOT NULL,
+  `driver_address` varchar(255) NOT NULL,
+  PRIMARY KEY (`driver_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of driver
 -- ----------------------------
 
 -- ----------------------------
@@ -144,6 +184,21 @@ CREATE TABLE `user` (
 
 -- ----------------------------
 -- Records of user
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `vehicle`
+-- ----------------------------
+DROP TABLE IF EXISTS `vehicle`;
+CREATE TABLE `vehicle` (
+  `vehicle_id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicle_license_number` varchar(255) NOT NULL,
+  `vehicle_type` varchar(255) NOT NULL,
+  PRIMARY KEY (`vehicle_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of vehicle
 -- ----------------------------
 
 -- ----------------------------
