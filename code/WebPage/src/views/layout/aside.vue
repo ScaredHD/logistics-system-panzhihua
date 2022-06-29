@@ -38,17 +38,17 @@ export default {
           icon: 'home',
           children: [
             {title: '商品管理', path: '/'},
-            {title: '来往单位', path: '/'},
+            {title: '交流公司信息管理', path: '/'},
             {title: '员工管理', path: '/'},
             {title: '仓库管理', path: '/'},
           ]
         },
         {
-          title: '销售信息管理',
+          title: '订单信息管理',
           icon: 'pay-circle',
           children: [
-            {title: '销售开票', path: '/'},
-            {title: '销售记录', path: '/'},
+            {title: '订单开票', path: '/'},
+            {title: '订单记录', path: '/'},
           ]
         },
         {
