@@ -6,6 +6,6 @@ import Antd from 'ant-design-vue'
 Vue.config.productionTip = false
 Vue.use(Antd);
 new Vue({
-	router,
+  router,
   render: h => h(App),
 }).$mount('#app')
