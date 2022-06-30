@@ -2,7 +2,7 @@ import Aside from
 
 <template>
   <el-container>
-    <el-aside width="220px">
+    <el-aside width="230px">
 		<Aside/>
 	</el-aside>
     <el-container>
@@ -49,12 +49,17 @@ import Aside from
 	  
 	}
 	.el-footer{
+		background-color: beige;
 		display: flex;
 		height: 4vh;
 		width: 100%;
 		align-items: center;
 		text-align: center;
-		  
-
+	}
+	.el-header{
+		background-color: antiquewhite;
+		/*display: flex;*/
+		height: 4vh;
+		width: 100%;
 	}
 </style>

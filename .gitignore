@@ -1,6 +1,7 @@
 # compile file and release version
 node_modules
-/dist
+dist
+target
 
 
 # local env files

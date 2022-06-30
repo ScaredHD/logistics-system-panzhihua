@@ -37,17 +37,17 @@ export default {
           title: '基础信息管理',
           icon: 'home',
           children: [
-            {title: '商品管理', path: '/'},
-            {title: '交流公司信息管理', path: '/'},
-            {title: '员工管理', path: '/'},
-            {title: '仓库管理', path: '/'},
+            {title: '人员信息管理', path: '/'},
+            {title: '公司信息管理', path: '/'},
+            {title: '货物信息管理', path: '/'},
+            {title: '仓库信息管理', path: '/'},
           ]
         },
         {
           title: '订单信息管理',
           icon: 'pay-circle',
           children: [
-            {title: '订单开票', path: '/'},
+            {title: '新增订单', path: '/'},
             {title: '订单记录', path: '/'},
           ]
         },
@@ -55,7 +55,7 @@ export default {
           title: '配送信息管理',
           icon: 'car',
           children: [
-            {title: '申请配送', path: '/'},
+            {title: '新增配送', path: '/'},
             {title: '配送列表', path: '/'},
           ]
         },
@@ -68,7 +68,7 @@ export default {
           ]
         },
         {
-          title: '系统决策管理',
+          title: '数据分析管理',
           icon: 'line-chart',
           children: [
           ]
