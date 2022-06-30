@@ -10,26 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2022-06-28 10:54:37
+Date: 2022-06-29 11:36:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for `goods`
--- ----------------------------
-DROP TABLE IF EXISTS `goods`;
-CREATE TABLE `goods` (
-  `goods_id` int(11) NOT NULL,
-  `goods_name` varchar(255) NOT NULL,
-  `goods_desc` varchar(255) DEFAULT NULL,
-  `goods_price` int(11) NOT NULL,
-  PRIMARY KEY (`goods_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of goods
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `company`
@@ -60,7 +44,13 @@ CREATE TABLE `delivery` (
   `deliver_address` varchar(255) NOT NULL,
   `deliver_status` int(11) NOT NULL,
   `deliver_notice` varchar(255) NOT NULL,
-  PRIMARY KEY (`deliver_id`)
+  PRIMARY KEY (`deliver_id`),
+  KEY `driver_id` (`driver_id`),
+  KEY `vehicle_id` (`vehicle_id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `driver_id` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON UPDATE CASCADE,
+  CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON UPDATE CASCADE,
+  CONSTRAINT `vehicle_id` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`vehicle_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
@@ -80,6 +70,7 @@ CREATE TABLE `driver` (
   `driver_id_card` varchar(255) NOT NULL,
   `driver_license_score` int(11) NOT NULL,
   `driver_address` varchar(255) NOT NULL,
+  `driver_status` int(11) DEFAULT NULL,
   PRIMARY KEY (`driver_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -106,6 +97,22 @@ CREATE TABLE `employee` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `goods`
+-- ----------------------------
+DROP TABLE IF EXISTS `goods`;
+CREATE TABLE `goods` (
+  `goods_id` int(11) NOT NULL,
+  `goods_name` varchar(255) NOT NULL,
+  `goods_desc` varchar(255) DEFAULT NULL,
+  `goods_price` int(11) NOT NULL,
+  PRIMARY KEY (`goods_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of goods
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `inventory`
 -- ----------------------------
 DROP TABLE IF EXISTS `inventory`;
@@ -117,7 +124,7 @@ CREATE TABLE `inventory` (
   PRIMARY KEY (`inventory_id`),
   KEY `in_warehouse_id` (`warehouse_id`) USING BTREE,
   KEY `in_goods_id` (`goods_id`) USING BTREE,
-  CONSTRAINT `goods_id` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`goods_id`) ON UPDATE CASCADE,
+  CONSTRAINT `goods_id` FOREIGN KEY (`goods_id`) REFERENCES `warehouse` (`warehouse_id`) ON UPDATE CASCADE,
   CONSTRAINT `warehouse_id` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -194,6 +201,7 @@ CREATE TABLE `vehicle` (
   `vehicle_id` int(11) NOT NULL AUTO_INCREMENT,
   `vehicle_license_number` varchar(255) NOT NULL,
   `vehicle_type` varchar(255) NOT NULL,
+  `vehicle_status` int(11) NOT NULL,
   PRIMARY KEY (`vehicle_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
