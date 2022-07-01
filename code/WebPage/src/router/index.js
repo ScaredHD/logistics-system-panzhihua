@@ -22,7 +22,7 @@ const routes = [
 			{
 				path: '/',
 				name: 'index_1',
-				component: ()=> import("../views/home")
+				redirect: "/goods"
 			},
 			{
 				path: '/goods',
