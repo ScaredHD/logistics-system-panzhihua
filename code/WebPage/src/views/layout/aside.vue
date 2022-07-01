@@ -10,6 +10,7 @@
 		<el-menu 
 		 active-text-color="blue"
 		 :default-openeds="[]"
+		 router
 		>
 			<el-submenu v-for="(item, index) in menus" :index="index+''">
 				<template slot="title">
@@ -17,7 +18,7 @@
 					<b>{{item.title}}</b>
 				</template>
 				<el-menu-item-group>
-					<el-menu-item v-for="(item2, index2) in item.children" :index="index+'-'+index2">
+					<el-menu-item v-for="(item2, index2) in item.children" :index="item2.path">
 						{{item2.title}}
 					</el-menu-item>
 				</el-menu-item-group>
@@ -37,40 +38,41 @@ export default {
           title: '基础信息管理',
           icon: 'home',
           children: [
-            {title: '商品管理', path: '/'},
-            {title: '交流公司信息管理', path: '/'},
-            {title: '员工管理', path: '/'},
-            {title: '仓库管理', path: '/'},
+            {title: '商品管理', path: '/goods'},
+            {title: '交流公司信息管理', path: '/company'},
+            {title: '员工管理', path: '/employee'},
+            {title: '仓库管理', path: '/warehouse'},
           ]
         },
         {
           title: '订单信息管理',
           icon: 'pay-circle',
           children: [
-            {title: '订单开票', path: '/'},
-            {title: '订单记录', path: '/'},
+            {title: '订单开票', path: '/order/create'},
+            {title: '订单记录', path: '/order/record'},
           ]
         },
         {
           title: '配送信息管理',
           icon: 'car',
           children: [
-            {title: '新增配送', path: '/'},
-            {title: '配送列表', path: '/'},
+            {title: '新增配送', path: '/delivery/create'},
+            {title: '配送列表', path: '/delivery/record'},
           ]
         },
         {
           title: '运输信息管理',
           icon: 'rocket',
           children: [
-            {title: '车辆资料', path: '/'},
-            {title: '驾驶员资料', path: '/'},
+            {title: '车辆资料', path: '/vehicle'},
+            {title: '驾驶员资料', path: '/driver'},
           ]
         },
         {
           title: '数据分析管理',
           icon: 'line-chart',
           children: [
+			  {title:'数据分析1',path:'/statistic'}
           ]
         }
       ]

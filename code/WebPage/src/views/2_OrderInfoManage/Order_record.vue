@@ -1,5 +1,7 @@
 <template>
-  <div>hello world</div>
+	<div class="content">
+		订单记录管理
+	</div>
 </template>
 
 <script>
