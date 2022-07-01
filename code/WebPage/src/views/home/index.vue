@@ -45,7 +45,7 @@
 				<hr/>
 				<div class="main_content">
 					<div style="height: 30px;"/>
-					<div class="headline">
+					<!--<div class="headline">
 						<el-row>
 							<el-col :span="2">
 								<div style="height: 100%;;">
@@ -61,9 +61,12 @@
 								<img style="margin-top:5px;" src="../../assets/18149442.jpg"/>
 							</el-col>
 						</el-row>
-					</div>
+					</div>-->
+					<!--<div style="width:100%;height:100px;">
+						
+					</div>-->
 					<div style="height: 30px;"/>
-					<div style="font-size: 30px;;"><b>新闻头条</b></div>
+					<!--<div style="font-size: 30px;;"><b>新闻头条</b></div>-->
 					<div style="height: 30px;"/>
 					<div class="content_main" style="height: 500px;;">
 						<div class="news" style="height: 100%;">
@@ -75,7 +78,7 @@
 									</div>
 								</el-col>
 								<el-col :span="12">
-									<div class="news_content">
+									<!--<div class="news_content">
 										<ul>
 											<li>走进县城看发展#【直播！#看见锦绣山河#[心]】</li>
 											<li>香港特区成立25周年#【一组图看#大湾区珠江口跨海跨江通道群有多美#】</li>
@@ -92,7 +95,8 @@
 											<li>【#机票燃油附加费创历史新高#】</li>
 											<li>#任天堂表示中国游戏机市场不大#【#任天堂与腾讯将联手推广游戏机#】</li>
 										</ul>
-									</div>
+									</div>-->
+									<div style=""></div>
 								</el-col>
 							</el-row>
 						</div>
