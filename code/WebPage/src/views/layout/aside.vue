@@ -105,15 +105,15 @@ export default {
 		margin-right: 10px;;
 	}
 	.el-menu{
-		background-color: antiquewhite;
+		/*background-color: antiquewhite;*/
 	}
 	.el-submenu{
-		background-color: antiquewhite;
+		/*background-color: antiquewhite;*/
 	}
 	.el-menu-item-group{
-		background-color: antiquewhite;
+		/*background-color: antiquewhite;*/
 	}
 	.el-menu-item{
-		background-color: antiquewhite;
+		/*background-color: antiquewhite;*/
 	}
 </style>

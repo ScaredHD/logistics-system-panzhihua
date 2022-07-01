@@ -42,14 +42,14 @@ import Aside from
 	}
 	.el-aside{
 		height: 100%;
-		background-color: antiquewhite;
+		/*background-color: antiquewhite;*/
 	}
 	.el-main {
 	  height: 100%;
 	  
 	}
 	.el-footer{
-		background-color: beige;
+		/*background-color: beige;*/
 		display: flex;
 		height: 4vh;
 		width: 100%;
@@ -57,7 +57,7 @@ import Aside from
 		text-align: center;
 	}
 	.el-header{
-		background-color: antiquewhite;
+		/*background-color: antiquewhite;*/
 		/*display: flex;*/
 		height: 4vh;
 		width: 100%;
