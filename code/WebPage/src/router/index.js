@@ -18,6 +18,7 @@ const routes = [
 		name: 'index',
 		component: Layout,
 		children: [
+			
 			{
 				path: '/404',
 				name: '404',
@@ -41,6 +42,10 @@ const routes = [
 		name: 'login',
 		component: () => import('../views/login/index.vue')
 		
+	},{
+		path: "/about",
+		name: 'about',
+		component: () => import("../views/about/AboutUs.vue")
 	},
 	{
 		path: '*',

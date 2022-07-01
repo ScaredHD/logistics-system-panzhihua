@@ -55,7 +55,7 @@ export default {
           title: '配送信息管理',
           icon: 'car',
           children: [
-            {title: '申请配送', path: '/'},
+            {title: '新增配送', path: '/'},
             {title: '配送列表', path: '/'},
           ]
         },
@@ -68,7 +68,7 @@ export default {
           ]
         },
         {
-          title: '系统决策管理',
+          title: '数据分析管理',
           icon: 'line-chart',
           children: [
           ]
