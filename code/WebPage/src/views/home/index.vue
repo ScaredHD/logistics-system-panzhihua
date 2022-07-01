@@ -7,7 +7,9 @@
 				<div class="NavBar">
 					<el-row>
 					    <el-col :span="6">
-							<div class=""></div>
+							<div class="" style="line-height: 60px;margin:0;font-size: 35px;text-align: center">
+								<b>攀枝花物流管理系统</b>
+							</div>
 						</el-col>
 						<el-col :span="12">
 							<div class="locate_down">
@@ -20,7 +22,7 @@
 							<div class="">
 								<el-col :span="12" class="contact_us">
 									<div>
-										<a class="contact_us_a">
+										<a class="contact_us_a" href="/about">
 											<div class="contact_us_div" style=";">
 												<span>联系我们</span>
 											</div>
@@ -192,6 +194,10 @@
 		margin-right: 10px;;
 		margin-bottom: -5px;
 		
+	}
+	.contact_us_a{
+		text-decoration: none;
+		color: black;
 	}
 	.login_icon_font, .register_icon_font{
 		line-height: 60px;;
