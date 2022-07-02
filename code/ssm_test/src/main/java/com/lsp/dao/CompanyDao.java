@@ -17,7 +17,7 @@ public interface CompanyDao {
     public void update(Company company);
     @Delete("delete from company where company_id = #{company_id}")
     public void delete(Integer company_id);
-    @Select("select company_name,company_tel,company_contacts from company " +
+    @Select("select company_id,company_name,company_tel,company_contacts from company " +
             "where company_name like concat('%',#{search},'%')")
     public List<Company> GetByName(String search);
     @Select("select * from company")
