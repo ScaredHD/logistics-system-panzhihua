@@ -49,18 +49,12 @@ const routes = [
                 path: 'delivery/create',
                 component: () => import('@/views/3_DeliverInfoManage/Delivery_add.vue'),
             },{
-                path: 'delivery/list',
+                path: 'delivery/record',
                 component: () => import('@/views/3_DeliverInfoManage/Delivery_list.vue'),
             },{
-                path: 'security',
-                component: () => import('@/views/temp/index'),
-            },{
-                path: 'admin',
-                component: () => import('@/views/temp/index'),
-            },{
-                path: 'role',
-                component: () => import('@/views/temp/index'),
-            },{
+							path: "statistic",
+								component: ()=> import("@/views/5_DataStatistics")
+						},{
                 path: '403',
                 component: () => import('@/views/error/403'),
             },{
@@ -91,6 +85,8 @@ const router = new VueRouter({
 })
 
 //路由卫士
-//router.beforeEach((to, from, next) => {})
+router.beforeEach((to, from, next) => {
+	next();
+})
 
 export default router

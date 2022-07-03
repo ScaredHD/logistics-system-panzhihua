@@ -73,9 +73,34 @@
 </template>
 
 <script>
-// import {FindAllCommodity} from "../../api/commodity";
-// import {SaveSale} from "../../api/sale";
-
+function FindAllCommodity(){
+	console.log("Find");
+	const res_data = [
+		{
+			"id": "2a4b5d30-d5fe-472c-b3a9-41f1ab8f0268",
+			"name": "ipad",
+			"price": 3999,
+			"description": "apple",
+			"count": 100,
+			"createAt": "2022-06-29 08:45:40",
+			"updateAt": null
+		},
+		{
+			"id": "c147a983-bf2e-4cc2-a21e-743e9026cf7c",
+			"name": "dasd",
+			"price": 8.99,
+			"description": "商品简介",
+			"count": 120,
+			"createAt": "2022-06-25 15:41:20",
+			"updateAt": null
+		},
+	]
+	return res_data;
+}
+	
+function saveOrder(value){
+	console.log("hello");
+}
 export default {
 
   data() {
@@ -101,9 +126,8 @@ export default {
   },
 
   mounted() {
-    FindAllCommodity().then((res) => {
-      if (res.status) this.commodityList = res.data
-    })
+		this.commodityList = FindAllCommodity();
+		console.log(this.commodityList);
   },
 
   methods: {
@@ -116,20 +140,10 @@ export default {
     },
     submit() {
       this.loading = true
-      SaveSale(this.form).then((res) => {
-        if (res.status) {
-          setTimeout(() => {
-            this.loading = false
-            this.current = 2
-            this.$message.success("提交成功")
-          }, 800)
-        } else {
-          setTimeout(() => {
-            this.loading = false
-            this.$message.error("提交失败")
-          }, 800)
-        }
-      })
+			saveOrder();
+			this.loading = false
+			this.current = 2
+			this.$message.success("提交成功")
     },
   },
 

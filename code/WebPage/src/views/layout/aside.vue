@@ -53,19 +53,19 @@ export default {
           ]
         },
         {
-          title: '配送信息管理',
-          icon: 'car',
-          children: [
-            {title: '新增配送', path: '/delivery/create'},
-            {title: '配送列表', path: '/delivery/record'},
-          ]
-        },
-        {
           title: '运输信息管理',
           icon: 'rocket',
           children: [
             {title: '车辆资料', path: '/vehicle'},
             {title: '驾驶员资料', path: '/driver'},
+          ]
+        },
+        {
+          title: '配送信息管理',
+          icon: 'car',
+          children: [
+            {title: '新增配送', path: '/delivery/create'},
+            {title: '配送列表', path: '/delivery/record'},
           ]
         },
         {
