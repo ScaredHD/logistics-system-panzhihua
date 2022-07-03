@@ -3,10 +3,9 @@ package com.lsp.controller;
 import com.lsp.domain.Vehicle;
 import com.lsp.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author:
@@ -23,5 +22,12 @@ public class VehicleController {
     public Result AddVehicleInfo(@RequestBody Vehicle vehicle){
         boolean flag = vehicleService.AddVehicleInfo(vehicle);
         return new Result(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
+    @GetMapping
+    public Result DisplayVehicleInfo(){
+        List<Vehicle> vehicleList = vehicleService.DisplayVehicleInfo();
+        Integer code = vehicleList != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = vehicleList != null ? "":"GET ERROR:PLEASE RETRY!";
+        return new Result(code,vehicleList,msg);
     }
 }

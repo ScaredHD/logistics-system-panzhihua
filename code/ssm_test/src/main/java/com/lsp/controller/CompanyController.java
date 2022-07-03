@@ -31,7 +31,7 @@ public class CompanyController {
     @DeleteMapping("/{company_id}")
     public Result DeleteCompanyInfo(@PathVariable Integer company_id) {
         boolean flag = companyService.DeleteCompanyInfo(company_id);
-        return new Result(flag?Code.DELETE_OK:Code.UPDATE_ERR,flag);
+        return new Result(flag?Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
     @GetMapping("/{search}")
     public Result SearchByCompanyName(@PathVariable String search) {

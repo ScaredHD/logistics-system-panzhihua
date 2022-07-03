@@ -10,7 +10,8 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface CompanyDao {
-    @Insert("insert into company (company_name,company_tel,company_contacts) values(#{company_name},#{company_tel},#{company_contacts})")
+    @Insert("insert into company (company_name,company_tel,company_contacts) " +
+            "values(#{company_name},#{company_tel},#{company_contacts})")
     public void save(Company company);
     @Update("update company set company_name = #{company_name},company_tel = #{company_tel},company_contacts = #{company_contacts} " +
             "where company_id = #{company_id}")

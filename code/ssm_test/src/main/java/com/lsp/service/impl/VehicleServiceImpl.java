@@ -6,6 +6,8 @@ import com.lsp.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author:
  * @createTime: 2022年07月02日 22:11:48
@@ -19,5 +21,9 @@ public class VehicleServiceImpl implements VehicleService {
     public boolean AddVehicleInfo(Vehicle vehicle) {
         vehicleDao.save(vehicle);
         return true;
+    }
+
+    public List<Vehicle> DisplayVehicleInfo() {
+        return vehicleDao.getAll();
     }
 }
