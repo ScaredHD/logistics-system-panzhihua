@@ -9,7 +9,7 @@
   "dependencies": {
     "ant-design-vue": "^1.7.4",
     "axios": "^0.21.1",
-    "echarts": "^5.0.2",
+    "echarts": "^5.3.3",
     "element-ui": "^2.15.9",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",

@@ -72,6 +72,10 @@ const routes = [
         component: () => import('@/views/login/login.vue'),
         meta: {auth: false}
     },{
+				path: "/register",
+				name:"register",
+				component: ()=> import("@/views/login/register.vue")
+		},{
         path: "*",
         redirect: '/404'
     }
