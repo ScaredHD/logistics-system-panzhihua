@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view></router-view>
   </div>
 </template>
 
+<script>
+</script>
+
 <style>
-	html, body{
+html, body{
 		margin: 0;
 		height: 100%;
 		min-width: 1800px;;

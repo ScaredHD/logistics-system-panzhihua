@@ -1,5 +1,5 @@
 {
-  "name": "default",
+  "name": "wab-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,17 +7,25 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "ant-design": "^1.0.0",
     "ant-design-vue": "^1.7.4",
-    "core-js": "^2.6.5",
+    "axios": "^0.21.1",
+    "echarts": "^5.0.2",
     "element-ui": "^2.15.9",
-    "jquery": "^3.6.0",
-    "vue": "^2.6.10",
-    "vue-router": "^3.2.0"
+    "nprogress": "^0.2.0",
+    "vue": "^2.6.11",
+    "vue-json-excel": "^0.3.0",
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
-    "vue-template-compiler": "^2.6.10"
-  }
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
