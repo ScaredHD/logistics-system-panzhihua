@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2022-07-03 09:08:29
+Date: 2022-07-03 09:10:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -149,8 +149,8 @@ CREATE TABLE `inventory_record` (
   PRIMARY KEY (`inventory_record_id`),
   KEY `warehouse_id` (`warehouse_id`) USING BTREE,
   KEY `record_goods_id` (`goods_id`),
-  CONSTRAINT `record_goods_id` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`goods_id`) ON UPDATE CASCADE,
-  CONSTRAINT `record_warehouse_id` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`) ON UPDATE CASCADE
+  CONSTRAINT `record_goods_id` FOREIGN KEY (`goods_id`) REFERENCES `inventory` (`goods_id`) ON UPDATE CASCADE,
+  CONSTRAINT `record_warehouse_id` FOREIGN KEY (`warehouse_id`) REFERENCES `inventory` (`warehouse_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
