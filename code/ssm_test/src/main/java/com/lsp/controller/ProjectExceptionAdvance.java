@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ProjectExceptionAdvance {
     @ExceptionHandler(Exception.class)
-    public void doException(Exception exception){
-        System.out.println("检测到异常！");
+    public Result doException(Exception exception){
+        return new Result(777,exception,"检测到异常！");
     }
 }
 
