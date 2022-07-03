@@ -1,5 +1,3 @@
-import Aside from 
-
 <template>
   <el-container>
     <el-aside width="230px">
@@ -59,7 +57,6 @@ import Aside from
 	.el-header{
 		/*background-color: antiquewhite;*/
 		/*display: flex;*/
-		height: 4vh;
 		width: 100%;
 	}
 </style>
