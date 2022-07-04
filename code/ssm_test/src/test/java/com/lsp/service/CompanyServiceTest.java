@@ -32,4 +32,8 @@ public class CompanyServiceTest {
         List<Company> company = companyService.DisplayCompanyInfo();
         System.out.println(company);
     }
+//    @Test
+//    public void testUser(){
+//        System.out.println();
+//    }
 }

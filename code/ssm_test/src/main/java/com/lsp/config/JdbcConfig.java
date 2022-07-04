@@ -2,7 +2,7 @@ package com.lsp.config;
 
 import javax.sql.DataSource;
 import com.alibaba.druid.pool.DruidDataSource;
-import jdk.jfr.internal.PlatformEventType;
+//import jdk.jfr.internal.PlatformEventType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
