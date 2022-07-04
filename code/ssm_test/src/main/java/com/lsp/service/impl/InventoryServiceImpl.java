@@ -1,6 +1,7 @@
 package com.lsp.service.impl;
 
 import com.lsp.dao.InventoryDao;
+import com.lsp.dao.InventoryRecordDao;
 import com.lsp.domain.Inventory;
 import com.lsp.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.util.List;
 public class InventoryServiceImpl implements InventoryService {
     @Autowired
     private InventoryDao inventoryDao;
+    @Autowired
+    private InventoryRecordDao inventoryRecordDao;
     public Integer Store(Inventory inventory) {
         Integer w_id = inventory.getI_warehouse_id();
         Integer g_id = inventory.getI_goods_id();
