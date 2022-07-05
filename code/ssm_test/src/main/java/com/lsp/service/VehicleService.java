@@ -8,5 +8,6 @@ import java.util.List;
 @Transactional
 public interface VehicleService {
     public boolean AddVehicleInfo(Vehicle vehicle);
+    public Vehicle GetById(Integer vehicle_id);
     public List<Vehicle> DisplayVehicleInfo();
 }

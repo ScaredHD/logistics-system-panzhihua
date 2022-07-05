@@ -33,6 +33,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return true;
     }
 
+    public Employee GetById(Integer employee_id) {
+        return employeeDao.getById(employee_id);
+    }
+
     public List<Employee> DisplayEmployeeInfo() {
         return employeeDao.getAll();
     }

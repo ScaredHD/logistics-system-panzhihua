@@ -8,5 +8,6 @@ import java.util.List;
 @Transactional
 public interface WarehouseService {
     public boolean AddWarehouseInfo(Warehouse warehouse);
+    public Warehouse GetById(Integer warehouse_id);
     public List<Warehouse> DisplayWarehouseInfo();
 }

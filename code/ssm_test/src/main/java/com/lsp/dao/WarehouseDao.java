@@ -10,6 +10,8 @@ public interface WarehouseDao {
     @Insert("insert into warehouse (warehouse_name,warehouse_manager_id) " +
             "values(#{warehouse_name},#{warehouse_manager_id})")
     public void save(Warehouse warehouse);
-    @Select("select warehouse_id,warehouse_name,employee_name from warehouse,employee where employee_id = warehouse_manager_id")
+    @Select("select * from warehouse where warehouse_id = #{warehouse_id}")
+    public Warehouse GetById(Integer  warehouse_id);
+    @Select("select * from warehouse")
     public List<Warehouse> getAll();
 }

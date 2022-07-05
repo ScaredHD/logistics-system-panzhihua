@@ -1,6 +1,7 @@
 package com.lsp.dao;
 
 import com.lsp.domain.Company;
+import com.lsp.domain.Driver;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -21,6 +22,8 @@ public interface CompanyDao {
     @Select("select company_id,company_name,company_tel,company_contacts from company " +
             "where company_name like concat('%',#{search},'%')")
     public List<Company> GetByName(String search);
+    @Select("select * from company where company_id = #{company_id}")
+    public Company getById(Integer company_id);
     @Select("select * from company")
     public List<Company> getAll();
 }

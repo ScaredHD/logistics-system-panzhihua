@@ -23,6 +23,10 @@ public class WarehouseServiceImpl implements WarehouseService {
         return true;
     }
 
+    public Warehouse GetById(Integer warehouse_id) {
+        return warehouseDao.GetById(warehouse_id);
+    }
+
     public List<Warehouse> DisplayWarehouseInfo() {
         return warehouseDao.getAll();
     }

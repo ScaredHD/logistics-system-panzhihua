@@ -10,5 +10,6 @@ public interface DriverService {
     public boolean AddDriverInfo(Driver driver);
     public boolean UpdateDriverInfo(Driver driver);
     public boolean DeleteDriverInfo(Integer driver_id);
+    public Driver GetById(Integer driver_id);
     public List<Driver> DisplayDriverInfo();
 }

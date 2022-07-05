@@ -2,6 +2,7 @@ package com.lsp.controller;
 
 import com.lsp.domain.Company;
 import com.lsp.domain.Driver;
+import com.lsp.domain.Employee;
 import com.lsp.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,13 @@ public class DriverController {
         boolean flag = driverService.DeleteDriverInfo(driver_id);
         return new Result(flag?Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
-
+    @GetMapping("/{driver_id}")
+    public Result GetById(@PathVariable Integer driver_id) {
+        Driver driver = driverService.GetById(driver_id);
+        Integer code = driver != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = driver != null ? "":"GET ERROR:PLEASE RETRY!";
+        return new Result(code,driver,msg);
+    }
     @GetMapping
     public Result DisplayDriverInfo() {
         List<Driver> driverList = driverService.DisplayDriverInfo();

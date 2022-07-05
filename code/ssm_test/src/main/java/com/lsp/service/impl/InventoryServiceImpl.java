@@ -38,9 +38,8 @@ public class InventoryServiceImpl implements InventoryService {
                 InventoryRecord inventoryRecord = null;
                 inventoryRecord.setIr_warehouse_id(w_id);
                 inventoryRecord.setIr_goods_id(g_id);
-                inventoryRecord.setRecord_count(abs(i_count));
+                inventoryRecord.setRecord_count(i_count);
                 inventoryRecord.setRecord_type('1');
-                java.util.Date date = new java.util.Date();
                 Timestamp timeStamp= new Timestamp(System.currentTimeMillis());
                 inventoryRecord.setRecord_create_at(timeStamp);
                 inventoryRecord.setRecord_comments("成功入库！");
@@ -52,9 +51,8 @@ public class InventoryServiceImpl implements InventoryService {
         InventoryRecord inventoryRecord = null;
         inventoryRecord.setIr_warehouse_id(w_id);
         inventoryRecord.setIr_goods_id(g_id);
-        inventoryRecord.setRecord_count(abs(i_count));
+        inventoryRecord.setRecord_count(i_count);
         inventoryRecord.setRecord_type('1');
-        java.util.Date date = new java.util.Date();
         Timestamp timeStamp= new Timestamp(System.currentTimeMillis());
         inventoryRecord.setRecord_create_at(timeStamp);
         inventoryRecord.setRecord_comments("成功入库！");
