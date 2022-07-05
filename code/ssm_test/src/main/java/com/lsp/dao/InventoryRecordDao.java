@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface InventoryRecordDao {
-    @Insert("insert into inventory_record (inventory_record_id,ir_warehouse_id,ir_goods_id,record_created_at,record_count," +
-            "record_type,record_comments) values(#{inventory_record_id},#{ir_warehouse_id},#{ir_goods_id},#{record_created_at}," +
+    @Insert("insert into inventory_record (ir_warehouse_id,ir_goods_id,record_created_at,record_count," +
+            "record_type,record_comments) values(#{ir_warehouse_id},#{ir_goods_id},#{record_created_at}," +
             "#{record_count},#{record_type},#{record_comments})")
     public void save(InventoryRecord inventoryRecord);
     @Update("update inventory_record comment = #{comment} where inventory_record_id = #{inventory_record_id}")

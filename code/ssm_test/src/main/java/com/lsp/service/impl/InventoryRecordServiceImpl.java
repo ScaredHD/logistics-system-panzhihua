@@ -26,4 +26,8 @@ public class InventoryRecordServiceImpl implements InventoryRecordService {
     public InventoryRecord GetComment(InventoryRecord inventoryRecord) {
         return inventoryRecordDao.getComment(inventoryRecord);
     }
+
+    public List<InventoryRecord> DisplayInventoryRecord() {
+        return inventoryRecordDao.getAll();
+    }
 }

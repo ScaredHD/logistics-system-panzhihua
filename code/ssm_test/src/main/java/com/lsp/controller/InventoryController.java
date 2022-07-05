@@ -1,12 +1,12 @@
 package com.lsp.controller;
 
+import com.lsp.domain.Company;
 import com.lsp.domain.Inventory;
 import com.lsp.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author:
@@ -51,5 +51,12 @@ public class InventoryController {
         }else{
             return new Result(Code.WITHDRAW_ERR,flag);
         }
+    }
+    @GetMapping
+    public Result DisplayInventoryInfo() {
+        List<Inventory> inventoryList = inventoryService.DisplayInventoryInfo();
+        Integer code = inventoryList != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = inventoryList != null ? "":"GET ERROR:PLEASE RETRY!";
+        return new Result(code,inventoryList,msg);
     }
 }
