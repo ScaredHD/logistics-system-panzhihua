@@ -2,6 +2,7 @@ package com.lsp.dao;
 
 import com.lsp.domain.User;
 import org.apache.ibatis.annotations.Select;
+<<<<<<< HEAD
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
@@ -25,4 +26,10 @@ public interface UserDao {
 
     @Select("select * from user")
     public List<User> displayUser();
+=======
+
+public interface UserDao {
+    @Select("select * from user where user_email=#{user_email} and password=#{password}")
+    public User selectUser(String user_email, String password);
+>>>>>>> 58a9bcff34d3462a6900369747b653524fdf0b25
 }

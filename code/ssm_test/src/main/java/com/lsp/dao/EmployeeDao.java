@@ -18,6 +18,8 @@ public interface EmployeeDao {
     public void update(Employee employee);
     @Delete("delete from employee where employee_id = #{employee_id}")
     public void delete(Integer employee_id);
+    @Select("select * from employee where employee_id = #{employee_id}")
+    public Employee getById(Integer employee_id);
     @Select("select * from employee")
     public List<Employee> getAll();
 }

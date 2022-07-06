@@ -10,5 +10,6 @@ public interface CompanyService {
     public boolean UpdateCompanyInfo(Company company);
     public boolean DeleteCompanyInfo(Integer company_id);
     public List<Company> SearchByCompanyName(String search);
+    public Company GetById(Integer company_id);
     public List<Company> DisplayCompanyInfo();
 }

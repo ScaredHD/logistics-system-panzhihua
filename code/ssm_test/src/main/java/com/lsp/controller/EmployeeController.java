@@ -34,7 +34,13 @@ public class EmployeeController {
         boolean flag = employeeService.DeleteEmployeeInfo(employee_id);
         return new Result(flag?Code.DELETE_OK:Code.DELETE_ERR,flag);
     }
-
+    @GetMapping("/{employee_id}")
+    public Result GetById(@PathVariable Integer employee_id) {
+        Employee employee = employeeService.GetById(employee_id);
+        Integer code = employee != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = employee != null ? "":"GET ERROR:PLEASE RETRY!";
+        return new Result(code,employee,msg);
+    }
     @GetMapping
     public Result DisplayEmployeeInfo() {
         List<Employee> employeeList = employeeService.DisplayEmployeeInfo();
