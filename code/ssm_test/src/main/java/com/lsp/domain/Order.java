@@ -15,17 +15,27 @@ public class Order {
     private Timestamp order_created_at;
     private String order_desc;
     private Integer order_num;
+    private char order_status;
 
     @Override
     public String toString() {
-        return "order{" +
+        return "Order{" +
                 "order_id=" + order_id +
                 ", o_inventory_id=" + o_inventory_id +
                 ", o_company_id=" + o_company_id +
                 ", order_created_at=" + order_created_at +
                 ", order_desc='" + order_desc + '\'' +
                 ", order_num=" + order_num +
+                ", order_status=" + order_status +
                 '}';
+    }
+
+    public char getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(char order_status) {
+        this.order_status = order_status;
     }
 
     public Integer getOrder_id() {
