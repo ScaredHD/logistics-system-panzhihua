@@ -8,6 +8,19 @@
     <context:component-scan base-package="com"></context:component-scan>
     <mvc:resources mapping="/html/**" location="/html/"></mvc:resources>
     <mvc:annotation-driven />
+    <mvc:cors>
+        <!--
+        allowed-origins="*" 表示跨域方案对所有请求都生效
+        allowed-methods="POST,GET,DELETE,PUT" 允许对请求方式
+        allowed-headers="Content-Type, Access-Control-Allow-Headers,Authorization,X-Requested-with" 允许对请求头
+        allow-credentials="true" 表示是否可以将对请求的响应暴露给页面
+         -->
+        <mvc:mapping path="/**" allowed-origins="*"
+                     allowed-methods="POST,GET,DELETE,PUT"
+                     allowed-headers="Content-Type, Access-Control-Allow-Headers,Authorization,X-Requested-with"
+                     allow-credentials="true"
+        />
+    </mvc:cors>
     <!--    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
     <!--        <property name="prefix" value="/log/"></property>-->
     <!--        <property name="suffix" value=".jsp"></property>-->
