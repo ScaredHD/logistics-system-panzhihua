@@ -13,6 +13,11 @@ public class User {
     private String activation_code;
     private char state;
 
+    public User(String user_email, String password) {
+        this.user_email = user_email;
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{" +
