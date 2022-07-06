@@ -20,6 +20,8 @@ public interface DriverDao {
     public void update(Driver driver);
     @Delete("delete from driver where driver_id = #{driver_id}")
     public void delete(Integer driver_id);
+    @Select("select * from driver where driver_id = #{driver_id}")
+    public Driver getById(Integer driver_id);
     @Select("select * from driver")
     public List<Driver> getAll();
 }

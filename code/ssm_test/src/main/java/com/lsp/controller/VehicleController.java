@@ -1,5 +1,6 @@
 package com.lsp.controller;
 
+import com.lsp.domain.Employee;
 import com.lsp.domain.Vehicle;
 import com.lsp.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,13 @@ public class VehicleController {
     public Result AddVehicleInfo(@RequestBody Vehicle vehicle){
         boolean flag = vehicleService.AddVehicleInfo(vehicle);
         return new Result(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
+    }
+    @GetMapping("/{vehicle_id}")
+    public Result GetById(@PathVariable Integer vehicle_id) {
+        Vehicle vehicle = vehicleService.GetById(vehicle_id);
+        Integer code = vehicle != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = vehicle != null ? "":"GET ERROR:PLEASE RETRY!";
+        return new Result(code,vehicle,msg);
     }
     @GetMapping
     public Result DisplayVehicleInfo(){

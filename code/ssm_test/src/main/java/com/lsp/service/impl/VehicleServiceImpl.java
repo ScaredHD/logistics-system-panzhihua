@@ -23,6 +23,10 @@ public class VehicleServiceImpl implements VehicleService {
         return true;
     }
 
+    public Vehicle GetById(Integer vehicle_id) {
+        return vehicleDao.getById(vehicle_id);
+    }
+
     public List<Vehicle> DisplayVehicleInfo() {
         return vehicleDao.getAll();
     }

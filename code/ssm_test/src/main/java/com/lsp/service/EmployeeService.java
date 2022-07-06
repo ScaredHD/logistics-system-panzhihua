@@ -10,5 +10,6 @@ public interface EmployeeService {
     public boolean AddEmployeeInfo(Employee employee);
     public boolean UpdateEmployeeInfo(Employee employee);
     public boolean DeleteEmployeeInfo(Integer employee_id);
+    public Employee GetById(Integer employee_id);
     public List<Employee> DisplayEmployeeInfo();
 }

@@ -37,6 +37,10 @@ public class CompanyServiceImpl implements CompanyService {
         return companyDao.GetByName(search);
     }
 
+    public Company GetById(Integer company_id) {
+        return companyDao.getById(company_id);
+    }
+
     public List<Company> DisplayCompanyInfo() {
         return companyDao.getAll();
     }

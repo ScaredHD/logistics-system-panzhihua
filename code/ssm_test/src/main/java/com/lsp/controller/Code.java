@@ -17,4 +17,6 @@ public class Code {
     public static final Integer DELETE_ERR = 10030;
     public static final Integer GET_ERR = 10040;
 
+    public static final Integer STORE_ERR = 10050;
+    public static final Integer WITHDRAW_ERR = 10060;
 }

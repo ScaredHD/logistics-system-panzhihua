@@ -10,6 +10,8 @@ public interface VehicleDao {
     @Insert("insert into vehicle (vehicle_license_number,vehicle_type,vehicle_status) " +
             "values(#{vehicle_license_number},#{vehicle_type},#{vehicle_status})")
     public void save(Vehicle vehicle);
+    @Select("select * from vehicle where vehicle_id = #{vehicle_id}")
+    public Vehicle getById(Integer vehicle_id);
     @Select("select * from vehicle")
     public List<Vehicle> getAll();
 }

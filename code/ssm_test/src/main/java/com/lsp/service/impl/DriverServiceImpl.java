@@ -33,6 +33,10 @@ public class DriverServiceImpl implements DriverService {
         return true;
     }
 
+    public Driver GetById(Integer driver_id) {
+        return driverDao.getById(driver_id);
+    }
+
 
     public List<Driver> DisplayDriverInfo() {
         return driverDao.getAll();
