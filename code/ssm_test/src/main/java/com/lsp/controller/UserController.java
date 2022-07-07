@@ -1,6 +1,5 @@
 package com.lsp.controller;
 
-<<<<<<< HEAD
 import com.lsp.domain.User;
 import com.lsp.service.UserService;
 import com.lsp.utils.EmalUtils;
@@ -8,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-=======
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
->>>>>>> 58a9bcff34d3462a6900369747b653524fdf0b25
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author:
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @version: 1.0
  * @Description:
  */
-<<<<<<< HEAD
 @Controller
 public class UserController {
     @Autowired
@@ -105,10 +101,4 @@ public class UserController {
 
     }
 
-=======
-@RestController
-@RequestMapping()
-public class UserController {
->>>>>>> 58a9bcff34d3462a6900369747b653524fdf0b25
 }
-
