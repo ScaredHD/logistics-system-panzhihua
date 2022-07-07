@@ -3,6 +3,7 @@ package com.lsp.controller;
 import com.lsp.domain.User;
 import com.lsp.service.UserService;
 import com.lsp.utils.EmalUtils;
+import com.lsp.utils.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 /**
- * @Author:
+ * @Author:何宇航
  * @createTime: 2022年07月02日 09:58:14
  * @version: 1.0
  * @Description:
@@ -31,7 +32,8 @@ public class UserController {
                         String password,
                         HttpSession httpSession) {
         Result result=new Result();
-        User userIn = new User(user_email, password);
+        String newPwd=EncryptUtil.encrypt(password);
+        User userIn = new User(user_email, newPwd);
         System.out.println("login加载了");
         User user = userService.selectUserByEml(userIn);
         System.out.println("select执行了");
@@ -93,7 +95,8 @@ public class UserController {
         User user =userService.selectActivationCode(activation_code);
         if(user!=null){
             user.setUser_email(user_email);
-            user.setPassword(password);
+            String newPwd= EncryptUtil.encrypt(password);
+            user.setPassword(newPwd);
             userService.registerUser(user);
             return true;
         }
