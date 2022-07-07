@@ -5,21 +5,23 @@ import router from '../router/index'
 const token = localStorage.getItem("token")
 
 const service = request.create({
-    baseURL: 'localhost:8080/api',
+    baseURL: 'http://localhost:8080',
     timeout: 50000,
-    headers: {'Authorization': token}
+    headers: {
+			'Authorization': token,
+			}
 });
 
 service.interceptors.response.use(
     response => {
 
         const res = response.data;
-
+				console.log(res);
         //判断response状态
-        if (!res.status) message.error('请求错误: ' + res.msg)
-
-        if (res.code === 403) router.push("/403")
-
+        if (res.code != 200) {
+					console.log(res.status);
+					message.error('请求错误: ' + res.msg)
+				}
         return res
     },
 

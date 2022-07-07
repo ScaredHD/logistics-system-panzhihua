@@ -11,6 +11,9 @@ const routes = [
 		path: "/about",
 		component: ()=>import("@/views/about/AboutUs.vue")
 	},
+	{
+		path: "/api",
+	},
     {
         path: '/',
         component: Layout,
@@ -75,10 +78,11 @@ const routes = [
 				path: "/register",
 				name:"register",
 				component: ()=> import("@/views/login/register.vue")
-		},{
+		},
+		/*{
         path: "*",
         redirect: '/404'
-    }
+    }*/
 
 ]
 
