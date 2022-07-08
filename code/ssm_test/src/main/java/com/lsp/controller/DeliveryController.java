@@ -15,7 +15,7 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("/Deliveries")
+@RequestMapping("/deliveries")
 public class DeliveryController {
     @Autowired
     private DeliveryService deliveryService;
