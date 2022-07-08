@@ -1,31 +1,26 @@
 <template>
-  <div
-    v-if="!registerActive"
-    class="card login"
-    v-bind:class="{ error: emptyFields }"
-  >
+  <div>
     <h1>登录</h1>
     <form class="form-group">
       <input
-        v-model="emailLogin"
-        type="email"
-        class="form-control"
-        placeholder="Email"
+        v-model="username"
+        type="text"
+        placeholder="用户名"
         required
       />
+      <br/>
       <input
         v-model="passwordLogin"
         type="password"
-        class="form-control"
-        placeholder="Password"
+        placeholder="密码"
         required
       />
-      <input type="submit" class="btn btn-primary" @click="doLogin" />
       <p>
         没有账号?
         <router-link to="/register">注册</router-link>
       </p>
       <p><a href="#">忘记密码?</a></p>
+      <input type="submit" class="btn btn-primary" @click="doLogin" />
     </form>
   </div>
 </template>
@@ -34,18 +29,13 @@
 export default {
   name: "login",
   data: {
-    registerActive: false,
-    emailLogin: "",
-    passwordLogin: "",
-    emailReg: "",
-    passwordReg: "",
-    confirmReg: "",
-    emptyFields: false,
+    username: "",
+    password: ""
   },
 
   methods: {
     doLogin() {
-      if (this.emailLogin === "" || this.passwordLogin === "") {
+      if (this.username === "" || this.passwordLogin === "") {
         this.emptyFields = true;
       } else {
         alert("You are now logged in");
