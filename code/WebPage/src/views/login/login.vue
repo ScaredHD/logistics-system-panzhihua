@@ -14,7 +14,7 @@
               class="card login"
               v-bind:class="{ error: emptyFields }"
             >
-              <h1>Sign In</h1>
+              <h1>Sign in</h1>
               <form class="form-group">
                 <input
                   v-model="emailLogin"
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style>
-p {
+/* p {
   line-height: 1rem;
 }
 
@@ -156,5 +156,5 @@ p {
   100% {
     transform: translateX(0);
   }
-}
+} */
 </style>
