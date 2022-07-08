@@ -31,11 +31,12 @@
 								</el-col>
 								<el-col :span="5" class="login_icon_font">
 									<img class="login_icon" src="../../assets/login.svg"/>
-									<a href="/login"><span>登录</span></a>
+									<router-link to="/login"><span>登录</span></router-link>
+									<!-- <a href="/login"><span>登录</span></a> -->
 								</el-col>
 								<el-col :span="5" class="register_icon_font">
 									<img class="register_icon" src="../../assets/register.svg"/>
-									<a href="/register"><span>注册</span></a>
+									<router-link to="/register"><span>注册</span></router-link>
 								</el-col>
 								<el-col :span="1"></el-col>
 							</div>
@@ -166,7 +167,7 @@
 
 <style>
 	body{
-		background: url("../../assets/bg_image.jpg");
+		/* background: url("../../assets/bg_image.jpg"); */
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 	}

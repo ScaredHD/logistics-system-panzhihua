@@ -33,61 +33,9 @@
                 <input type="submit" class="btn btn-primary" @click="doLogin" />
                 <p>
                   Don't have an account?
-                  <a
-                    href="#"
-                    @click="
-                      (registerActive = !registerActive), (emptyFields = false)
-                    "
-                    >Sign up here</a
-                  >
+                  <router-link to="/register">Sign up here</router-link>
                 </p>
                 <p><a href="#">Forgot your password?</a></p>
-              </form>
-            </div>
-
-            <div
-              v-else
-              class="card register"
-              v-bind:class="{ error: emptyFields }"
-            >
-              <h1>Sign Up</h1>
-              <form class="form-group">
-                <input
-                  v-model="emailReg"
-                  type="email"
-                  class="form-control"
-                  placeholder="Email"
-                  required
-                />
-                <input
-                  v-model="passwordReg"
-                  type="password"
-                  class="form-control"
-                  placeholder="Password"
-                  required
-                />
-                <input
-                  v-model="confirmReg"
-                  type="password"
-                  class="form-control"
-                  placeholder="Confirm Password"
-                  required
-                />
-                <input
-                  type="submit"
-                  class="btn btn-primary"
-                  @click="doRegister"
-                />
-                <p>
-                  Already have an account?
-                  <a
-                    href="#"
-                    @click="
-                      (registerActive = !registerActive), (emptyFields = false)
-                    "
-                    >Sign in here</a
-                  >
-                </p>
               </form>
             </div>
           </div>
