@@ -2,13 +2,8 @@
   <div>
     <h1>注册</h1>
     <form @submit.prevent="handleSubmit">
-      <!-- <label>用户名</label>
-        <input type="text" v-model="username" required>
-
-        <label>密码</label>  
-        <input type="password" v-model="password" required>             -->
       <input v-model="username" type="text" placeholder="用户名" required />
-			<br/>
+      <br />
       <input v-model="password" type="password" placeholder="密码" required />
       <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
@@ -36,16 +31,13 @@ export default {
   },
   methods: {
     handleSubmit() {
-      //Validate password field length
       this.passwordError =
         this.password.length > 6
           ? ""
-          : "Password should be more than 6 characters long!";
+          : "密码长度至少为 6 个字符";
 
       if (!this.passwordError) {
-        console.log(this.username);
-        console.log(this.password);
-        console.log(this.terms);
+				alert(this.passwordError)
       }
     },
   },
