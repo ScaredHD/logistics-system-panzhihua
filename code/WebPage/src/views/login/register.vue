@@ -1,21 +1,21 @@
 <template>
 <div>
-	<h1>Sign up</h1>
+	<h1>注册</h1>
     <form @submit.prevent="handleSubmit">
-        <label>Email :</label>
-        <input type="email" v-model="email" required>
+        <label>用户名</label>
+        <input type="username" v-model="username" required>
 
-        <label>Password :</label>  
+        <label>密码</label>  
         <input type="password" v-model="password" required>            
         <div v-if="passwordError" class="error">{{ passwordError }} </div>
 
         <div>
             <input type="checkbox" v-model="terms" required>
-            <label>Please accept terms and conditions</label>
+            <label>请接受用户条款</label>
         </div>
 				<p>已有账号? <router-link to="/login">登录</router-link></p>
         <div class="button">
-            <button class="submit" type="submit">Sign up here</button>
+            <button class="submit" type="submit">点此注册</button>
         </div>
     </form>
 </div>
@@ -27,7 +27,7 @@ export default{
 
     data() {
         return {
-            email: '',
+            username: '',
             password: '',
             terms: false,
             passwordError: ''
@@ -40,7 +40,7 @@ export default{
             '' : 'Password should be more than 6 characters long!';
 
             if(!this.passwordError) {
-                console.log(this.email);
+                console.log(this.username);
                 console.log(this.password);
                 console.log(this.terms);
 

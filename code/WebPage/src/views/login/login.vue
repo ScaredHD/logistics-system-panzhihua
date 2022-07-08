@@ -1,47 +1,32 @@
 <template>
-  <div id="app">
-    <div class="login-page">
-      <transition name="fade">
-        <div v-if="!registerActive" class="wallpaper-login"></div>
-      </transition>
-      <div class="wallpaper-register"></div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-            <div
-              v-if="!registerActive"
-              class="card login"
-              v-bind:class="{ error: emptyFields }"
-            >
-              <h1>Sign in</h1>
-              <form class="form-group">
-                <input
-                  v-model="emailLogin"
-                  type="email"
-                  class="form-control"
-                  placeholder="Email"
-                  required
-                />
-                <input
-                  v-model="passwordLogin"
-                  type="password"
-                  class="form-control"
-                  placeholder="Password"
-                  required
-                />
-                <input type="submit" class="btn btn-primary" @click="doLogin" />
-                <p>
-                  Don't have an account?
-                  <router-link to="/register">Sign up here</router-link>
-                </p>
-                <p><a href="#">Forgot your password?</a></p>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div
+    v-if="!registerActive"
+    class="card login"
+    v-bind:class="{ error: emptyFields }"
+  >
+    <h1>登录</h1>
+    <form class="form-group">
+      <input
+        v-model="emailLogin"
+        type="email"
+        class="form-control"
+        placeholder="Email"
+        required
+      />
+      <input
+        v-model="passwordLogin"
+        type="password"
+        class="form-control"
+        placeholder="Password"
+        required
+      />
+      <input type="submit" class="btn btn-primary" @click="doLogin" />
+      <p>
+        没有账号?
+        <router-link to="/register">注册</router-link>
+      </p>
+      <p><a href="#">忘记密码?</a></p>
+    </form>
   </div>
 </template>
 
