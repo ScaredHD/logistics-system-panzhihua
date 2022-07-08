@@ -12,6 +12,10 @@
         <label>请接受用户条款</label>
       </div>
       <p>已有账号? <router-link to="/login">登录</router-link></p>
+      <div>
+        <input v-model="captcha" type="text" placeholder="验证码" required />
+        <div>验证码图片</div>
+      </div>
       <div class="button">
         <button class="submit" type="submit">点此注册</button>
       </div>
@@ -20,6 +24,15 @@
 </template>
 
 <script>
+import service from "@/utils/request";
+
+function Register() {
+  return service({
+    url: "/register",
+    method: "post",
+  });
+}
+
 export default {
   data() {
     return {
@@ -27,18 +40,21 @@ export default {
       password: "",
       terms: false,
       passwordError: "",
+      captcha: "",
     };
   },
   methods: {
     handleSubmit() {
       this.passwordError =
-        this.password.length > 6
-          ? ""
-          : "密码长度至少为 6 个字符";
+        this.password.length > 6 ? "" : "密码长度至少为 6 个字符";
 
       if (!this.passwordError) {
-				alert(this.passwordError)
+        alert(this.passwordError);
+      } else if (!captcha) {
+        alert("请输入验证码");
+        return;
       }
+
     },
   },
 };
