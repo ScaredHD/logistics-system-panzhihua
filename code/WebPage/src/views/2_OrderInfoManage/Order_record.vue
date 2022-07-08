@@ -41,6 +41,11 @@ function saveOrder(value){
 	})
 }
 const columns = [
+	{
+		title: '订单号',
+		dataIndex: 'order_id',
+		key: 'order_id',
+	},
   {
     dataIndex: 'company_name',
     key: 'company_name',

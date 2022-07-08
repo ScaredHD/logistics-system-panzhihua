@@ -181,9 +181,11 @@ export default {
     loadTableData() {
       this.loading = true;
 			FindAllDriver().then((res)=>{
-				this.data = res.data;
-				this.cacheData = res.data.map(item => ({...item}))
-				this.loading = false;
+				setTimeout(()=>{
+					this.data = res.data;
+					this.cacheData = res.data.map(item => ({...item}))
+					this.loading = false;
+				}, 300)
 			})
     },
     submitForm() {

@@ -16,7 +16,7 @@ public class Delivery {
     private Timestamp deliver_time;
     private String deliver_address;
     private char deliver_status;
-    private String notice;
+    private String deliver_notice;
 
     @Override
     public String toString() {
@@ -28,7 +28,7 @@ public class Delivery {
                 ", deliver_time=" + deliver_time +
                 ", deliver_address='" + deliver_address + '\'' +
                 ", deliver_status=" + deliver_status +
-                ", notice='" + notice + '\'' +
+                ", deliver_notice='" + deliver_notice + '\'' +
                 '}';
     }
 
@@ -89,10 +89,10 @@ public class Delivery {
     }
 
     public String getNotice() {
-        return notice;
+        return deliver_notice;
     }
 
-    public void setNotice(String notice) {
-        this.notice = notice;
+    public void setNotice(String deliver_notice) {
+        this.deliver_notice = deliver_notice;
     }
 }
