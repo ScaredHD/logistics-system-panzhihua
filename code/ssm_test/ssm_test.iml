@@ -7,11 +7,11 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/../ssm_test/src/main/webapp" relative="/" />
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/../ssm_test/src/main/java" />
-          <root url="file://$MODULE_DIR$/../ssm_test/src/main/resourses" />
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resourses" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -20,13 +20,13 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6">
-    <output url="file://$MODULE_DIR$/../ssm_test/target/classes" />
-    <output-test url="file://$MODULE_DIR$/../ssm_test/target/test-classes" />
-    <content url="file://$MODULE_DIR$/../ssm_test">
-      <sourceFolder url="file://$MODULE_DIR$/../ssm_test/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../ssm_test/src/main/resourses" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../ssm_test/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/../ssm_test/target" />
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resourses" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -54,5 +54,7 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.0" level="project" />
+    <orderEntry type="library" name="Maven: com.thetransactioncompany:cors-filter:2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.thetransactioncompany:java-property-utils:1.16" level="project" />
   </component>
 </module>
