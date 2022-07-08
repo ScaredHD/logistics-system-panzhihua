@@ -1,5 +1,6 @@
 package com.lsp.domain;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 
 /**
@@ -10,18 +11,17 @@ import java.sql.Timestamp;
  */
 public class Order {
     private Integer order_id;
-    private Integer o_inventory_id;
+    private Integer o_goods_id;
     private Integer o_company_id;
     private Timestamp order_created_at;
     private String order_desc;
     private Integer order_num;
     private char order_status;
-
     @Override
     public String toString() {
         return "Order{" +
                 "order_id=" + order_id +
-                ", o_inventory_id=" + o_inventory_id +
+                ", o_goods_id=" + o_goods_id +
                 ", o_company_id=" + o_company_id +
                 ", order_created_at=" + order_created_at +
                 ", order_desc='" + order_desc + '\'' +
@@ -46,12 +46,12 @@ public class Order {
         this.order_id = order_id;
     }
 
-    public Integer getO_inventory_id() {
-        return o_inventory_id;
+    public Integer getO_goods_id() {
+        return o_goods_id;
     }
 
-    public void setO_inventory_id(Integer o_inventory_id) {
-        this.o_inventory_id = o_inventory_id;
+    public void setO_goods_id(Integer o_goods_id) {
+        this.o_goods_id = o_goods_id;
     }
 
     public Integer getO_company_id() {

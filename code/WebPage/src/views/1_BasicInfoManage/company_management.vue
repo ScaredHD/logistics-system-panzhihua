@@ -17,8 +17,13 @@
 			</el-button>
 		</div>
     <a-table :loading="loading" :columns="columns" :data-source="data" rowKey="id">
-      <a slot="company" slot-scope="company">{{ company }}</a>
+      <a slot="company" slot-scope="text">{{ company }}</a>
       <span slot="customTitle"><a-icon type="bank"/> 公司名称</span>
+			<span slot="action" slot-scope="text, record, index">
+			    <a-button @click="handleUpdate(record)" type="link"><a-icon type="edit"/> Update</a-button>
+			  <a-divider type="vertical"/>
+			     <a-button @click="handleDelete(record,index)" type="link"><a-icon type="delete"/> Delete</a-button>
+			</span>
     </a-table>
 		
 		<a-modal
@@ -31,17 +36,17 @@
 		      <a-input v-model="company.company_name"/>
 		    </a-form-model-item>
 		    <a-form-model-item label="公司联系电话" prop="telephone">
-		      <a-input-number id="input" v-model="company.company_tel" :min="1"/>
+		      <a-input v-model="company.company_tel"/>
 		    </a-form-model-item>
 		    <a-form-model-item label="公司联系人" prop="contact_person">
-		      <a-input v-model="company.company_contacts" type="textarea"/>
+		      <a-input v-model="company.company_contacts"/>
 		    </a-form-model-item>
 		  </a-form-model>
 		  <template slot="footer">
 		    <el-button key="back" @click="companyVisible = false">
 		      Return
 		    </el-button>
-		    <el-button key="submit" type="primary" :loading="modalLoading" @click="submitcompany">
+		    <el-button key="submit" type="primary" :loading="modalLoading" @click="submitCompany">
 		      Submit
 		    </el-button>
 		  </template>
@@ -60,12 +65,12 @@ function FindAllCompany(){
 }
 function SearchCompany(query){
 	return service({
-		url:"/cpmpanys/"+query,
+		url:"/companys/"+query,
 		method:"get"
 	})
 }
 
-function SaveCommodity(value, update){
+function SaveCompany(value, update){
 	var method;
 	if (update)
 		method = "put"
@@ -77,7 +82,7 @@ function SaveCommodity(value, update){
 		data: value
 	})
 }
-function DeleteCommodityById(company_id){
+function DeleteCompanyById(company_id){
 	return service({
 		url: "/companys/"+company_id,
 		method:"delete"
@@ -100,6 +105,11 @@ const columns = [
     title: '联系人',
     dataIndex: 'company_contacts',
     key: 'company_contacts',
+  },
+  {
+    title: '更多操作',
+    key: 'action',
+    scopedSlots: {customRender: 'action'},
   },
 ];
 
@@ -132,11 +142,12 @@ export default {
     onSearch(value) {
       if (value) {
         this.loading = true
-				/***************************************************
-				// this is a replace to the request data
-				***************************************************/
-        this.data = SearchCompany(value)
-				this.loading = false
+				SearchCompany(value).then((res)=>{
+					setTimeout(() => {
+						this.loading = false
+						this.data = res.data
+					}, 600)
+				})
       } else {
         this.$message.warn("请输入搜索内容")
       }
@@ -144,14 +155,40 @@ export default {
 
     loadTableData() {
       this.loading = true;
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			this.data = FindAllCompany();
-			this.loading = false;
-    }
-
-  },
+			FindAllCompany().then((res)=>{
+				setTimeout(() => {
+					this.loading = false
+					this.data = res.data
+				}, 600)
+			})
+    },
+		submitCompany() {
+		  this.modalLoading = true;
+			var temp_commidity = this.company
+			SaveCompany(temp_commidity, this.update).then((res)=>{
+				setTimeout(() => {
+				  this.modalLoading = false
+				  this.companyVisible = false
+				  this.$message.success('商品信息提交成功');
+				  this.loadTableData();
+				}, 600)
+			})
+			this.update = false;
+		},
+		handleDelete(r, index) {
+			DeleteCompanyById(r.company_id).then((res)=>{
+				this.$message.success('商品信息删除成功');
+				this.loadTableData()
+			})
+		},
+		
+		handleUpdate(r) {
+			this.update = true
+			console.log(r)
+		  this.company = r
+		  this.companyVisible = true
+		},
+	},
 
 };
 </script>

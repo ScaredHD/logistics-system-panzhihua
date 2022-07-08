@@ -31,6 +31,15 @@ public class InventoryRecordController {
         String msg = inventoryRecord1 != null ? "":"No such record!";
         return new Result(code,inventoryRecord1,msg);
     }
+
+    @GetMapping("/{id}")
+    public Result GetByWarehouseId(@PathVariable String id){
+        List<InventoryRecord> inventoryRecordList = inventoryRecordService.getRecordByWarehouseId(id);
+        Integer code = inventoryRecordList != null ? Code.GET_OK : Code.GET_ERR;
+        String msg = inventoryRecordList != null ? "":"GET ERROR:PLEASE RETRY!";
+        return new Result(code,inventoryRecordList,msg);
+    }
+
     @GetMapping
     public Result DisplayInventoryRecordInfo() {
         List<InventoryRecord> inventoryRecordList = inventoryRecordService.DisplayInventoryRecord();

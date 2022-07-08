@@ -11,16 +11,16 @@
         <a-col :span="8" v-for="(item, index) in this.data" :key="index" class="item">
           <a-card hoverable>
             <template slot="actions" class="ant-card-actions">
-              <span>负责人: {{ item.manager }}</span>
+              <span>负责人: {{ item.warehouse_manager_id }}</span>
               <span>
-                <router-link :to="'/warehouse/' + item.id">
+                <router-link :to="'/warehouse/' + item.warehouse_id">
                   <a-icon type="bar-chart"/> 库存管理
                 </router-link>
               </span>
             </template>
             <a-card-meta
-                :title="item.name"
-                :description="'ID: ' + item.id">
+                :title="item.warehouse_name"
+                :description="'ID: ' + item.warehouse_id">
               <img class="image" slot="avatar" :src="imgList[Math.floor(Math.random() * 3)]"
                    alt=""/>
             </a-card-meta>
@@ -35,39 +35,63 @@
         @ok="submit"
         @cancel="visible = false"
     >
-      <a-input v-model="form.name" addon-before="仓库名称" style="width: 300px;margin-bottom: 20px"></a-input>
-      <a-input v-model="form.manager" addon-before="仓库负责人" style="width: 300px"></a-input>
-    </a-modal>
+		<a-form-model :model="form">
+			<a-form-model-item label="仓库名称">
+				<a-input v-model="form.warehouse_name" style="width: 300px;margin-bottom: 20px"/>
+			</a-form-model-item>
+			<a-form-model-item label="仓库负责人">
+				<a-select style="width:400px" v-model="form.warehouse_manager_id"  placeholder="请选择员工所在仓库">
+					<a-select-option style="width:300px;" :value="item.employee_id" v-for="(item,index) in EmployeeList">{{ item.employee_name }}</a-select-option>
+				</a-select>
+			</a-form-model-item>
+		</a-form-model>
+		</a-modal>
   </div>
 </template>
 
 <script>
-
-function FindAllWarehouse(){
-	return [
-		{
-			"id": "bd6fe1ce-6d20-4b6e-9c45-87580c8ab95b",
-			"name": "demo",
-			"manager": "zhan",
-			"createAt": "2022-06-25 11:43:54"
-		},
-		{
-			"id":"fds8f78-fsdfcvx3-dfsdfsdf3-fds34dsfsdf",
-			"name":"demo2",
-			"manager":"wang",
-			"createAt": "2022-07-01 12:11:11"
-		}
-	]
+import service from "@/utils/request"
+function FindAllWareHouse(){
+	return service({
+		url:"/warehouses",
+		method:"get"
+	})
 }
-function SaveWarehouse(){}
+function FindAllEmployee(){
+	return service({
+		url:"/employees",
+		method:"get"
+	})
+}
+
+function SaveWarehouse(value){
+	return service({
+		url:"/warehouses",
+		method:"post",
+		data: value
+	})
+}
+function DeleteWarehouse(warehouse_id){
+	return service({
+		url:"/warehouses/"+warehouse_id,
+		method:"delete"
+	})
+}
+function GetEmployeeNameById(id){
+	return service({
+		url:"/employees/"+id,
+		method:"get"
+	})
+}
 export default {
   name: "WareHouse",
   data() {
     return {
       visible: false,
-      form: {id: '', manager: '', name: ''},
+      form: {warehouse_id: '', warehouse_manager_id: '', warehouse_name: ''},
       spinning: false,
       data: [],
+			EmployeeList:[],
       imgList: [
         require('../../assets/warehouse0.svg'),
         require('../../assets/warehouse1.svg'),
@@ -83,22 +107,26 @@ export default {
 
     loadData() {
       this.spinning = true;
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			this.data = FindAllWarehouse();
-			this.spinning = false;
-     
+			FindAllWareHouse().then((res)=>{
+				setTimeout(()=>{
+					this.data = res.data;
+					this.spinning = false;
+				}, 600)
+			})
+			FindAllEmployee().then((res)=>{
+				setTimeout(()=>{
+					this.EmployeeList = res.data;
+				},100)
+			})
     },
 
     submit() {
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			this.$message.success("添加成功");
-			this.visible = false;
-			this.loadData();
-      
+			SaveWarehouse(this.form).then((res) => {
+        if (res.status) 
+					this.$message.success("添加成功")
+        this.visible = false
+        this.loadData()
+      })  
     }
 
   },

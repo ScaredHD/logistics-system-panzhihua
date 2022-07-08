@@ -20,12 +20,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     @PostMapping
-    public Result AddOrderInfo(Order order){
+    public Result AddOrderInfo(@RequestBody Order order){
         boolean flag = orderService.AddOrderInfo(order);
         return new Result(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
     @PutMapping
-    public Result CompleteOrder(Order order){
+    public Result CompleteOrder(@RequestBody Order order){
         boolean flag = orderService.CompleteOrder(order);
         return new Result(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }

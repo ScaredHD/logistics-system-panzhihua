@@ -41,13 +41,13 @@ public class CompanyController {
         String msg = companyList != null ? "":"GET ERROR:PLEASE RETRY!";
         return new Result(code,companyList,msg);
     }
-    @GetMapping("/{company_id}")
-    public Result GetById(@PathVariable Integer company_id) {
-        Company company = companyService.GetById(company_id);
-        Integer code = company != null ? Code.GET_OK : Code.GET_ERR;
-        String msg = company != null ? "":"GET ERROR:PLEASE RETRY!";
-        return new Result(code,company_id,msg);
-    }
+//    @GetMapping("/{company_id}")
+//    public Result GetById(@PathVariable Integer company_id) {
+//        Company company = companyService.GetById(company_id);
+//        Integer code = company != null ? Code.GET_OK : Code.GET_ERR;
+//        String msg = company != null ? "":"GET ERROR:PLEASE RETRY!";
+//        return new Result(code,company_id,msg);
+//    }
     @GetMapping
     public Result DisplayCompanyInfo() {
         List<Company> companyList = companyService.DisplayCompanyInfo();

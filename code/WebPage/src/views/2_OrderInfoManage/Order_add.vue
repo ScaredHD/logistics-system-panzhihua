@@ -8,27 +8,25 @@
     <div class="steps-content">
       <div v-if="current === 0">
         <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol">
-          <a-form-model-item label="公司名称" required>
-            <a-input v-model="form.company"/>
-          </a-form-model-item>
-          <a-form-model-item label="打款账号" required>
-            <a-input v-model="form.number"/>
+          <a-form-model-item label="合作公司" required>
+            <a-select v-model="form.o_company_id" placeholder="请选择公司">
+              <a-select-option :value="item.company_id" v-for="(item, index) in companyList" :key="index">
+                {{ item.company_name }}
+              </a-select-option>
+            </a-select>
           </a-form-model-item>
           <a-form-model-item label="售出商品" required>
-            <a-select v-model="selectIndex" placeholder="请选择商品">
-              <a-select-option :value="index" v-for="(item, index) in commodityList" :key="index">
-                {{ item.name }}
+            <a-select v-model="form.o_goods_id" placeholder="请选择商品">
+              <a-select-option :value="item.goods_id" v-for="(item, index) in commodityList" :key="index">
+                {{ item.goods_name }}
               </a-select-option>
             </a-select>
           </a-form-model-item>
           <a-form-model-item label="商品数量" required>
-            <a-input-number v-model="form.count"/>
-          </a-form-model-item>
-          <a-form-model-item label="预留电话" required>
-            <a-input v-model="form.phone"/>
+            <a-input-number v-model="form.order_num"/>
           </a-form-model-item>
           <a-form-model-item label="备注信息" required>
-            <a-input v-model="form.description" type="textarea" :rows="4"/>
+            <a-input v-model="form.order_desc" type="textarea" :rows="4"/>
           </a-form-model-item>
           <a-form-model-item :wrapper-col="{ span: 14, offset: 6 }">
             <a-button type="primary" @click="next">
@@ -38,14 +36,14 @@
         </a-form-model>
       </div>
       <div v-if="current === 1" class="check">
-        <p>收货公司： {{ form.company }}</p>
-        <p>打款账号： {{ form.number }}</p>
-        <p>售出商品： {{ form.commodity }}</p>
-        <p>商品数量： {{ form.count }}</p>
-        <p>预留电话： {{ form.phone }}</p>
-        <p>备注信息： {{ form.description }}</p>
+        <p>收货公司： {{ form.o_company_name }}</p>
+        <!-- <p>打款账号： {{ form.number }}</p> -->
+        <p>售出商品： {{ form.o_goods_name }}</p>
+        <p>商品数量： {{ form.order_num }}</p>
+        <p>预留电话： {{ form.tel_number }}</p>
+        <p>备注信息： {{ form.order_desc }}</p>
         <a-divider orientation="right">
-          金额总计： {{ form.price }}
+          金额总计： {{ form.order_price }}
         </a-divider>
         <a-button type="danger" style="margin-right: 20px" :loading="loading" @click="submit">提交</a-button>
         <a-button @click="current = 0">上一步</a-button>
@@ -57,7 +55,7 @@
             sub-title="Please wait for the administrator to review the delivery request."
         >
           <template #extra>
-            <router-link to="/sale/record">
+            <router-link to="/order/record">
               <a-button key="console" type="primary">
                 Go Back
               </a-button>
@@ -73,33 +71,26 @@
 </template>
 
 <script>
+import service from "@/utils/request"
+function FindAllCompany(){
+	return service({
+		url:"/companys",
+		method:"get"
+	})
+}
 function FindAllCommodity(){
-	console.log("Find");
-	const res_data = [
-		{
-			"id": "2a4b5d30-d5fe-472c-b3a9-41f1ab8f0268",
-			"name": "ipad",
-			"price": 3999,
-			"description": "apple",
-			"count": 100,
-			"createAt": "2022-06-29 08:45:40",
-			"updateAt": null
-		},
-		{
-			"id": "c147a983-bf2e-4cc2-a21e-743e9026cf7c",
-			"name": "dasd",
-			"price": 8.99,
-			"description": "商品简介",
-			"count": 120,
-			"createAt": "2022-06-25 15:41:20",
-			"updateAt": null
-		},
-	]
-	return res_data;
+	return service({
+		url:"/goodss",
+		method:"get"
+	})
 }
 	
 function saveOrder(value){
-	console.log("hello");
+	return service({
+		url:"/orders",
+		method:"post",
+		data: value
+	})
 }
 export default {
 
@@ -113,37 +104,70 @@ export default {
       drivers: [],
       vehicles: [],
       commodityList: [],
+			companyList:[],
       form: {
-        company: '',
-        number: '',
-        commodity: '',
-        count: 50,
-        price: 0,
-        phone: '',
-        description: '',
+        o_company_id: '',
+        tel_number: '',
+        o_goods_id: '',
+        order_num: 50,
+        order_price: 0,
+        order_desc: '',
+				o_company_name:"",
+				o_goods_name:"",
+				order_created_at:"",
+				order_status: 0,
+				order_money:0
       },
     }
   },
 
   mounted() {
-		this.commodityList = FindAllCommodity();
-		console.log(this.commodityList);
+		FindAllCommodity().then((res)=>{
+			this.commodityList = res.data
+		})
+		FindAllCompany().then((res)=>{
+			this.companyList = res.data
+		})
   },
 
   methods: {
+		getCompanyNameById(){
+			for(var i=0;i<this.companyList.length;i++){
+				if(this.companyList[i].company_id == this.form.o_company_id){
+					this.form.tel_number = this.companyList[i].company_tel
+					this.form.o_company_name = this.companyList[i].company_name
+					return this.companyList[i].company_name
+				}
+			}
+		},
+		getCommodityNameById(){
+			for(var i=0;i<this.commodityList.length;i++){
+				if(this.commodityList[i].goods_id == this.form.o_goods_id){
+					this.form.o_goods_name = this.commodityList[i].goods_name
+					this.order_money = this.form.order_num*this.commodityList[i].goods_price
+					return this.commodityList[i].goods_name
+				}
+			}
+		},
     next() {
-      let commodity = this.commodityList[this.selectIndex]
-      this.form.price = this.form.count * commodity.price
-      this.form.commodity = commodity.name
-      console.log(this.form)
+			this.form.o_company_name = this.getCompanyNameById()
+			this.form.o_goods_name = this.getCommodityNameById()
+			this.form.order_created_at = new Date().getTime()
       this.current = 1
     },
     submit() {
       this.loading = true
-			saveOrder();
-			this.loading = false
-			this.current = 2
-			this.$message.success("提交成功")
+			saveOrder(this.form).then((res)=>{
+				if(res.code=200){
+					this.loading = false
+					this.current = 2
+					this.$message.success("提交成功")
+				}else{
+					this.loading = false
+					this.current = 2
+					this.$message.success("提交失败")
+				}
+			})
     },
   },
 

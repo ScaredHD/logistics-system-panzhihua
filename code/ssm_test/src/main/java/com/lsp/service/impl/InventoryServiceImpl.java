@@ -26,9 +26,9 @@ public class InventoryServiceImpl implements InventoryService {
     @Autowired
     private InventoryRecordDao inventoryRecordDao;
     public Integer Store(Inventory inventory) {
-        Integer w_id = inventory.getI_warehouse_id();
-        Integer g_id = inventory.getI_goods_id();
-        Integer i_count = inventory.getInventory_count();
+        Integer w_id = inventory.getI_warehouse_id();  // get the warehouse_id
+        Integer g_id = inventory.getI_goods_id();   // get the goods_id
+        Integer i_count = inventory.getInventory_count();   // get the count of the goods(in this warehouse)
         List<Inventory> inventoryList = inventoryDao.getAll();
         for(int i = 0;i<inventoryList.size();i++){
             Inventory inventory1 = inventoryList.get(i);
@@ -41,7 +41,7 @@ public class InventoryServiceImpl implements InventoryService {
                 inventoryRecord.setRecord_count(i_count);
                 inventoryRecord.setRecord_type('1');
                 Timestamp timeStamp= new Timestamp(System.currentTimeMillis());
-                inventoryRecord.setRecord_create_at(timeStamp);
+                inventoryRecord.setRecord_created_at(timeStamp);
                 inventoryRecord.setRecord_comments("成功入库！");
                 inventoryRecordDao.save(inventoryRecord);
                 return 1;
@@ -54,7 +54,7 @@ public class InventoryServiceImpl implements InventoryService {
         inventoryRecord.setRecord_count(i_count);
         inventoryRecord.setRecord_type('1');
         Timestamp timeStamp= new Timestamp(System.currentTimeMillis());
-        inventoryRecord.setRecord_create_at(timeStamp);
+        inventoryRecord.setRecord_created_at(timeStamp);
         inventoryRecord.setRecord_comments("成功入库！");
         inventoryRecordDao.save(inventoryRecord);
         return 2;
@@ -77,7 +77,7 @@ public class InventoryServiceImpl implements InventoryService {
                         inventoryRecord.setRecord_count(abs(i_count));
                         inventoryRecord.setRecord_type('2');
                         Timestamp timeStamp= new Timestamp(System.currentTimeMillis());
-                        inventoryRecord.setRecord_create_at(timeStamp);
+                        inventoryRecord.setRecord_created_at(timeStamp);
                         inventoryRecord.setRecord_comments("成功出库！");
                         inventoryRecordDao.save(inventoryRecord);
                         return 1;
@@ -90,7 +90,7 @@ public class InventoryServiceImpl implements InventoryService {
                     inventoryRecord.setRecord_count(abs(i_count));
                     inventoryRecord.setRecord_type('2');
                     Timestamp timeStamp= new Timestamp(System.currentTimeMillis());
-                    inventoryRecord.setRecord_create_at(timeStamp);
+                    inventoryRecord.setRecord_created_at(timeStamp);
                     inventoryRecord.setRecord_comments("成功出库！");
                     inventoryRecordDao.save(inventoryRecord);
                     return 2;

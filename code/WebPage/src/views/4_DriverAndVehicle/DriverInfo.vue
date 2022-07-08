@@ -6,7 +6,7 @@
     </a-button>
     <a-table :loading="loading" :columns="columns" :data-source="data" bordered rowKey="id">
       <template
-          v-for="col in ['name', 'gender', 'phone','score','idCard','address', 'license']"
+          v-for="col in ['driver_name', 'driver_gender', 'driver_tel','driver_license_score','driver_id_card','driver_address', 'driver_license']"
           :slot="col"
           slot-scope="text, record, index"
       >
@@ -33,7 +33,7 @@
           <span v-else>
           <a :disabled="editingKey !== ''" @click="() => edit(record.id)">编辑</a>
         </span>
-          <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm(record.id)">
+          <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm(record.driver_id)">
             <template slot="title">
               <p> 删除驾驶员信息后将无法恢复，确定要删除吗？ </p>
             </template>
@@ -51,32 +51,32 @@
     >
       <a-form-model :model="form">
         <a-form-model-item label="姓名">
-          <a-input v-model="form.name" placeholder="请输入司机姓名"/>
+          <a-input v-model="form.driver_name" placeholder="请输入司机姓名"/>
         </a-form-model-item>
         <a-form-model-item label="身份证号">
-          <a-input v-model="form.idCard" placeholder="请输入司机身份证信息"/>
+          <a-input v-model="form.driver_id_card" placeholder="请输入司机身份证信息"/>
         </a-form-model-item>
         <a-form-model-item label="联系方式">
-          <a-input v-model="form.phone" placeholder="请输入手机号码"/>
+          <a-input v-model="form.driver_tel" placeholder="请输入手机号码"/>
         </a-form-model-item>
         <a-form-item label="驾照信息">
           <a-row :gutter="20">
             <a-col :span="12">
-              <a-input v-model="form.license" addon-before="驾驶证" default-value="0571"/>
+              <a-input v-model="form.driver_license" addon-before="驾驶证" default-value="0571"/>
             </a-col>
             <a-col :span="7">
-              <a-input-number v-model="form.score" addon-before="分数" default-value="12" :min="0" :max="12"/>
+              <a-input-number v-model="form.driver_license_score" addon-before="分数" default-value="12" :min="0" :max="12"/>
             </a-col>
           </a-row>
         </a-form-item>
         <a-form-model-item label="性别">
-          <a-radio-group v-model="form.gender">
+          <a-radio-group v-model="form.driver_gender">
             <a-radio value="男性">男性</a-radio>
             <a-radio value="女性">女性</a-radio>
           </a-radio-group>
         </a-form-model-item>
         <a-form-model-item label="家庭住址">
-          <a-input v-model="form.address" type="textarea"/>
+          <a-input v-model="form.driver_address" type="textarea"/>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -85,79 +85,65 @@
 </template>
 
 <script>
+import service from "@/utils/request"
 function FindAllDriver(){
-	var res_text = [
-		{
-			"id": "06366f4c-26dc-4b7a-a165-8532cf322bdd",
-			"name": "test3",
-			"gender": "男性",
-			"phone": "test3",
-			"address": "test3",
-			"idCard": "test3",
-			"license": "test3",
-			"score": "12",
-			"driving": false,
-			"createAt": "2022-06-29 08:50:12",
-			"updateAt": null
-		},
-		{
-			"id": "c2575c6c-f610-47cf-8ab7-bf7e1db3260c",
-			"name": "li",
-			"gender": "男性",
-			"phone": "123123123",
-			"address": "dadasda",
-			"idCard": "1312312",
-			"license": "42342343",
-			"score": "12",
-			"driving": true,
-			"createAt": "2022-06-25 15:57:36",
-			"updateAt": null
-		}
-	]
-	return res_text;
+	return service({
+		url:"/drivers",
+		method:"get"
+	})
 }
-function DeleteDriverById(value){
-	console.log("delete successfully");
+
+function DeleteDriverById(id){
+	return service({
+		url:"/drivers/"+id,
+		method:"delete"
+	})
 }
-function SaveDriver(object){
-	console.log("save successfully");
+function SaveDriver(value, update=false){
+	var method = "post";
+	if(update) method = "put"
+	return service({
+		url:"/drivers",
+		method:method,
+		data:value
+	})
 }
 
 const columns = [
   {
     title: '名字',
-    dataIndex: 'name',
-    scopedSlots: {customRender: 'name'},
+    dataIndex: 'driver_name',
+    scopedSlots: {customRender: 'driver_name'},
   },
   {
     title: '性别',
-    dataIndex: 'gender',
-    scopedSlots: {customRender: 'gender'},
+    dataIndex: 'driver_gender',
+    scopedSlots: {customRender: 'driver_gender'},
   },
   {
     title: '联系电话',
-    dataIndex: 'phone',
-    scopedSlots: {customRender: 'phone'},
+    dataIndex: 'driver_tel',
+    scopedSlots: {customRender: 'driver_tel'},
   },
   {
     title: '驾驶证',
-    dataIndex: 'license',
-    scopedSlots: {customRender: 'license'},
+    dataIndex: 'driver_license',
+    scopedSlots: {customRender: 'driver_license'},
   },
   {
     title: '驾证分数',
-    dataIndex: 'score',
-    scopedSlots: {customRender: 'score'},
+    dataIndex: 'driver_license_score',
+    scopedSlots: {customRender: 'driver_license_score'},
   },
   {
     title: '身份证',
-    dataIndex: 'idCard',
-    scopedSlots: {customRender: 'idCard'},
+    dataIndex: 'driver_id_card',
+    scopedSlots: {customRender: 'driver_id_card'},
   },
   {
     title: '家庭住址',
-    dataIndex: 'address',
-    scopedSlots: {customRender: 'address'},
+    dataIndex: 'driver_address',
+    scopedSlots: {customRender: 'driver_address'},
   },
   {
     title: '操作',
@@ -172,18 +158,20 @@ export default {
       loading: false,
       form: {
         cacheData: [],
-        name: '',
-        gender: '男性',
-        phone: '',
-        address: '',
-        idCard: '',
-        license: '',
-        score: 12,
+        driver_name: '',
+        driver_gender: '男性',
+        driver_tel: '',
+        driver_address: '',
+        driver_id_card: '',
+        driver_license: '',
+        driver_license_score: 12,
+				driver_status: 0
       },
       visible: false,
       data: [],
       columns,
       editingKey: '',
+			update: false,
     };
   },
   mounted() {
@@ -192,21 +180,19 @@ export default {
   methods: {
     loadTableData() {
       this.loading = true;
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			this.data = FindAllDriver();
-			//this.cacheData = res.data.map(item => ({...item}))
-			this.loading = false
+			FindAllDriver().then((res)=>{
+				this.data = res.data;
+				this.cacheData = res.data.map(item => ({...item}))
+				this.loading = false;
+			})
     },
     submitForm() {
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			SaveDriver(this.form)
-			this.$message.success('司机信息提交成功')
-			this.visible = false
-			this.loadTableData()
+			SaveDriver(this.form).then((res)=>{
+				this.$message.success('司机信息提交成功')
+				this.visible = false
+				this.loadTableData()
+				this.update = false
+			})
      
     },
     handleChange(value, id, column) {
@@ -238,12 +224,11 @@ export default {
         this.cacheData = newCacheData;
       }
       this.editingKey = '';
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			SaveDriver(newData[index]);
-			this.$message.success("信息保存成功");
-      
+			this.update = true;
+			SaveDriver(newData[index], this.update).then((res)=>{
+				this.$message.success("信息保存成功");
+				this.loadTableData()
+			});
     },
     cancel(id) {
       const newData = [...this.data];
@@ -256,12 +241,6 @@ export default {
       }
     },
     confirm(id) {
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			DeleteDriverById(id);
-			this.$message.success('Delete success');
-			this.loadTableData()
       DeleteDriverById(id).then((res) => {
         if (res.status)  this.$message.success('Delete success');
         this.loadTableData()

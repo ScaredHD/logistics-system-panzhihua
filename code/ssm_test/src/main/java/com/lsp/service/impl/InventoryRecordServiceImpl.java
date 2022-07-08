@@ -30,4 +30,8 @@ public class InventoryRecordServiceImpl implements InventoryRecordService {
     public List<InventoryRecord> DisplayInventoryRecord() {
         return inventoryRecordDao.getAll();
     }
+
+    public List<InventoryRecord> getRecordByWarehouseId(String id){
+        return inventoryRecordDao.getRecordByWarehouseId(id);
+    }
 }

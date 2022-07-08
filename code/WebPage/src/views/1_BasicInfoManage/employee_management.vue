@@ -6,7 +6,7 @@
     </el-button>
     <a-table :loading="loading" :columns="columns" :data-source="data" bordered rowKey="id">
       <template
-          v-for="col in ['name', 'gender', 'phone','idCard','department', 'address']"
+          v-for="col in ['employee_name', 'employee_gender', 'employee_id_card','employee_tel', 'employee_address']"
           :slot="col"
           slot-scope="text, record, index"
       >
@@ -35,9 +35,9 @@
         </span>
           <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm(record.id)">
             <template slot="title">
-              <p> 删除驾驶员信息后将无法恢复，确定要删除吗？ </p>
+              <p> 删除职员信息后将无法恢复，确定要删除吗？ </p>
             </template>
-            <el-button type="link">删除</el-button>
+            <a-button type="link">删除</a-button>
           </a-popconfirm>
         </div>
       </template>
@@ -49,29 +49,24 @@
         @ok="submitForm"
         @cancel="visible = false"
     >
-      <a-form-model :model="form">
+      <a-form-model :model="employee">
         <a-form-model-item label="姓名">
-          <a-input v-model="form.name" placeholder="请输入司机姓名"/>
+          <a-input v-model="employee.employee_name" placeholder="请输入员工姓名"/>
         </a-form-model-item>
+				<a-form-model-item label="性别">
+				  <a-radio-group v-model="employee.employee_gender">
+				    <a-radio value="男性">男性</a-radio>
+				    <a-radio value="女性">女性</a-radio>
+				  </a-radio-group>
+				</a-form-model-item>
         <a-form-model-item label="身份证号">
-          <a-input v-model="form.idCard" placeholder="请输入司机身份证信息"/>
+          <a-input v-model="employee.employee_id_card" placeholder="请输入员工身份证信息"/>
         </a-form-model-item>
         <a-form-model-item label="联系方式">
-          <a-input v-model="form.phone" placeholder="请输入手机号码"/>
-        </a-form-model-item>
-        <a-form-model-item label="所在仓库">
-          <a-select v-model="form.department" v-for="(item,index) in warehouseList" placeholder="请选择员工所在仓库">
-            <a-select-option :value="item.name">{{ item.name }}</a-select-option>
-          </a-select>
-        </a-form-model-item>
-        <a-form-model-item label="性别">
-          <a-radio-group v-model="form.gender">
-            <a-radio value="男性">男性</a-radio>
-            <a-radio value="女性">女性</a-radio>
-          </a-radio-group>
-        </a-form-model-item>
+          <a-input v-model="employee.employee_tel" placeholder="请输入手机号码"/>
+        </a-form-model-item>   
         <a-form-model-item label="家庭住址">
-          <a-input v-model="form.address" type="textarea"/>
+          <a-input v-model="employee.employee_address" type="textarea"/>
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -80,76 +75,55 @@
 </template>
 
 <script>
-
+import service from "@/utils/request.js";
 function FindAllEmployee(){
-	return [
-		{
-			"id": "45012507-f90b-4b26-afb7-077755ab7745",
-			"name": "zhang ",
-			"gender": "男性",
-			"phone": "12312312312",
-			"address": "fsdf ",
-			"idCard": "123123123",
-			"department": "demo",
-			"createAt": "2022-06-25 15:27:57",
-			"updateAt": null
-		},
-		{
-			"id": "5372ef33-175b-4d50-a61c-93990944d0a3",
-			"name": "周发发",
-			"gender": "男性",
-			"phone": "12312312312312321",
-			"address": "东北囤",
-			"idCard": "11111111111111111111111111111",
-			"department": "demo",
-			"createAt": "2022-06-29 08:46:36",
-			"updateAt": null
-		},
-		{
-			"id": "a7e6399b-14d8-421b-a633-832af6a89dc0",
-			"name": "lihua",
-			"gender": "男性",
-			"phone": "",
-			"address": "",
-			"idCard": "",
-			"department": "demo2",
-			"createAt": "2022-06-29 08:46:51",
-			"updateAt": null
-		}
-	]
+	return service({
+		url: "/employees",
+		method: "get"
+	})
 }
-function SaveEmployee(){
-	
+function SaveEmployee(value, update_status){
+	var method = "post"
+	if(update_status)
+		method = "put"
+	return service({
+		url:"/employees",
+		method:method,
+		data: value
+	})
 }
-function DeleteEmployee(){
-	
+function DeleteEmployee(id){
+	return service({
+		url:"/employees/"+id,
+		method:"delete"
+	})
 }
 
 const columns = [
   {
     title: '名字',
-    dataIndex: 'name',
-    scopedSlots: {customRender: 'name'},
+    dataIndex: 'employee_name',
+    scopedSlots: {customRender: 'employee_name'},
   },
   {
     title: '性别',
-    dataIndex: 'gender',
-    scopedSlots: {customRender: 'gender'},
-  },
-  {
-    title: '联系电话',
-    dataIndex: 'phone',
-    scopedSlots: {customRender: 'phone'},
+    dataIndex: 'employee_gender',
+    scopedSlots: {customRender: 'employee_gender'},
   },
   {
     title: '身份证',
-    dataIndex: 'idCard',
-    scopedSlots: {customRender: 'idCard'},
+    dataIndex: 'employee_id_card',
+    scopedSlots: {customRender: 'employee_id_card'},
+  },
+  {
+    title: '联系电话',
+    dataIndex: 'employee_tel',
+    scopedSlots: {customRender: 'employee_tel'},
   },
   {
     title: '家庭住址',
-    dataIndex: 'address',
-    scopedSlots: {customRender: 'address'},
+    dataIndex: 'employee_address',
+    scopedSlots: {customRender: 'employee_address'},
   },
   {
     title: '操作',
@@ -162,19 +136,19 @@ export default {
   data() {
     return {
       loading: false,
-      form: {
+      employee: {
         cacheData: [],
-        name: '',
-        gender: '男性',
-        phone: '',
-        department: '',
-        address: '',
-        idCard: '',
+        employee_name: '',
+        employee_gender: '男性',
+        employee_tel: '',
+        employee_address: '',
+        employee_id_card: '',
       },
       visible: false,
       data: [],
       columns,
       editingKey: '',
+			update_status: false
     };
   },
   mounted() {
@@ -183,23 +157,25 @@ export default {
   methods: {
 
     loadTableData() {
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-      this.loading = true;
-			this.data = FindAllEmployee();
-			this.loading = false;
-      
+			this.loading = true;
+			console.log("Find---")
+			FindAllEmployee().then((res)=>{
+				setTimeout(() => {
+					this.data = res.data
+					this.loading = false
+				}, 600)
+			})
     },
 
     submitForm() {
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			SaveEmployee();
-			this.$message.success('员工信息提交成功');
-			this.visible = false;
-			this.loadTableData()
+			var temp_employee = this.employee
+			SaveEmployee(temp_employee, this.update_status).then((res)=>{
+				if (res.status) 
+					this.$message.success('员工信息提交成功')
+				this.visible = false
+				this.loadTableData()
+			})
+			this.update_status = false
     },
 
     handleChange(value, id, column) {
@@ -211,6 +187,7 @@ export default {
       }
     },
     edit(id) {
+			this.update_status = true;
       const newData = [...this.data];
       const target = newData.filter(item => id === item.id)[0];
       this.editingKey = id;
@@ -235,8 +212,10 @@ export default {
 			/***************************************************
 			// this is a replace to the request data
 			***************************************************/
-			SaveEmployee();
-			this.$message.success("信息保存成功");
+			SaveEmployee(newData[index]).then((res)=>{
+				if (res.status) 
+					this.$message.success("信息保存成功")
+			})
       
     },
     cancel(id) {
@@ -250,11 +229,12 @@ export default {
       }
     },
     confirm(id) {
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			DeleteEmployee();
-			this.$message.success('Delete success');
+			DeleteEmployee(id).then((res)=>{
+				if(res.status)
+					this.$message.success('Delete success');
+				this.loadTableData()
+			})
+			
       
     },
   },

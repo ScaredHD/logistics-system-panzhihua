@@ -1,6 +1,8 @@
 package com.lsp.domain;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * @Author:
@@ -12,7 +14,7 @@ public class InventoryRecord {
     private Integer inventory_record_id;
     private Integer ir_warehouse_id;
     private Integer ir_goods_id;
-    private Timestamp record_create_at;
+    private Timestamp record_created_at;
     private Integer record_count;
     private char record_type;
     private String record_comments;
@@ -23,7 +25,7 @@ public class InventoryRecord {
                 "inventory_record_id=" + inventory_record_id +
                 ", ir_warehouse_id=" + ir_warehouse_id +
                 ", ir_goods_id=" + ir_goods_id +
-                ", record_create_at=" + record_create_at +
+                ", record_create_at=" + record_created_at +
                 ", record_count=" + record_count +
                 ", record_type=" + record_type +
                 ", record_comments='" + record_comments + '\'' +
@@ -54,12 +56,15 @@ public class InventoryRecord {
         this.ir_goods_id = ir_goods_id;
     }
 
-    public Timestamp getRecord_create_at() {
-        return record_create_at;
+    public String getRecord_created_at() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义格式，不显示毫秒
+        String str = df.format(record_created_at);
+        return str;
+        //return record_created_at;
     }
 
-    public void setRecord_create_at(Timestamp record_create_at) {
-        this.record_create_at = record_create_at;
+    public void setRecord_created_at(Timestamp record_created_at) {
+        this.record_created_at = record_created_at;
     }
 
     public Integer getRecord_count() {

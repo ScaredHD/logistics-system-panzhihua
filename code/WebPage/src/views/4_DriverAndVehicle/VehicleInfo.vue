@@ -11,17 +11,17 @@
         <a-col :span="8" v-for="(item, index) in this.data" :key="index" class="item">
           <a-card hoverable>
             <template slot="actions" class="ant-card-actions">
-              <a-tag :color=" item.driving ? 'orange': 'green'">{{ item.driving ? '正在途中' : '正在休息' }}</a-tag>
+              <a-tag :color=" item.vehicle_status ? 'orange': 'green'">{{ item.status ? '正在途中' : '正在休息' }}</a-tag>
               <span>使用记录</span>
             </template>
             <a-card-meta
-                :title="'车牌号：' + item.number"
-                :description="'ID: ' + item.id">
+                :title="'车牌号：' + item.vehicle_license_number"
+                :description="'ID: ' + item.vehicle_id">
               <a-badge :number-style="{ backgroundColor: '#52c41a' }"
                        slot="avatar"
-                       :count="item.type"
+                       :count="item.vehicle_type"
                        :offset="[-80,10]">
-                <img class="image" :src="require('../../assets/' +item.type+'.svg')" alt=""/>
+                <img class="image" :src="require('../../assets/' +item.vehicle_type+'.svg')" alt=""/>
               </a-badge>
             </a-card-meta>
           </a-card>
@@ -36,10 +36,10 @@
     >
       <a-form-model :model="form">
         <a-form-model-item label="车牌号码">
-          <a-input v-model="form.number"/>
+          <a-input v-model="form.vehicle_license_number"/>
         </a-form-model-item>
         <a-form-model-item label="车辆类型">
-          <a-select v-model="form.type">
+          <a-select v-model="form.vehicle_type">
             <a-select-option value="小型汽车">小型汽车</a-select-option>
             <a-select-option value="货车">货车</a-select-option>
             <a-select-option value="卡车">卡车</a-select-option>
@@ -51,35 +51,19 @@
 </template>
 
 <script>
-
+import service from "@/utils/request"
 function FindAllVehicle(){
-	var res_text = [
-		{
-			"id": "01f3976d-0e8b-4ac4-86bf-7a7de6489e65",
-			"number": "京A0000",
-			"type": "货车",
-			"driving": false,
-			"createAt": "2022-06-28 10:24:14"
-		},
-		{
-			"id": "1c6c7597-c5f6-4a87-aa88-1b25a1f4120e",
-			"number": "京A0001",
-			"type": "货车",
-			"driving": false,
-			"createAt": "2022-06-25 16:54:23"
-		},
-		{
-			"id": "2af71e17-ca63-4b5b-8fce-cbdd495b26dc",
-			"number": "京A0002",
-			"type": "货车",
-			"driving": false,
-			"createAt": "2022-06-25 16:54:16"
-		},
-	]
-	return res_text;
+	return service({
+		url:"/vehicles",
+		method:"get"
+	})
 }
-function saveVehicle(){
-	console.log("save successfully")
+function saveVehicle(value){
+	return service({
+		url:"/vehicles",
+		method: "post",
+		data: value
+	})
 }
 export default {
   name: "WareHouse",
@@ -88,9 +72,9 @@ export default {
       visible: false,
       spinning: false,
       form: {
-        number: '京A0000',
-        type: '货车',
-        driving: false,
+        vehicle_license_number: '京A-00000',
+        vehicle_type: '货车',
+        vehicle_status: 0,
       },
       data: [],
       imgList: [
@@ -108,24 +92,22 @@ export default {
 
     loadData() {
       this.spinning = true
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			this.data = FindAllVehicle();
-			setTimeout(() => {
-			  this.spinning = false
-			}, 600)
-      
+			
+			FindAllVehicle().then((res)=>{
+				setTimeout(()=>{
+					this.data = res.data;
+					console.log("data:",this.data)
+				}, 100)
+				this.spinning = false
+			})   
     },
 
     submit() {
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			saveVehicle(this.form);
-			this.$message.success("添加成功")
-			this.visible = false
-			this.loadData()
+			saveVehicle(this.form).then((res)=>{
+				this.$message.success("添加成功")
+				this.visible = false
+				this.loadData()
+			})
      
     }
 
