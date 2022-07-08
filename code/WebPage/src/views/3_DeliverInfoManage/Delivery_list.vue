@@ -1,10 +1,9 @@
 <template>
   <div>
     <a-table :loading="loading" :columns="columns" :data-source="data" bordered rowKey="id">
-      <span slot="status" slot-scope="status">
-        <a-tag v-if="status===0" color="#f50">等待审核</a-tag>
-        <a-tag v-if="status===1" color="#87d068">正在运输</a-tag>
-        <a-tag v-if="status===2" color="#2db7f5">配送完成</a-tag>
+      <span slot="deliver_status" slot-scope="deliver_status">
+        <a-tag v-if="deliver_status==='0'" color="#f50">等待审核</a-tag>
+        <a-tag v-if="deliver_status==='1'" color="#2db7f5">配送完成</a-tag>
       </span>
       <template
           v-for="col in ['phone','address']"
@@ -25,18 +24,17 @@
       </template>
       <template slot="operation" slot-scope="text, record, index">
         <div class="editable-row-operations">
-          <span v-if="record.editable">
+          <!-- <span v-if="record.editable">
           <a @click="() => save(record.id, index)">保存</a>
           <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.id)">
             <a>取消</a>
           </a-popconfirm>
-        </span>
+					</span>
           <span v-else>
           <a :disabled="editingKey !== ''" @click="() => edit(record.id)">编辑</a>
-        </span>
-          <a-button @click="review(index)" type="link" v-if="record.status===0">审核</a-button>
-          <a-button @click="review(index)" type="link" v-if="record.status===1">配送</a-button>
-          <a-button @click="review(index)" type="link" v-if="record.status===2">查看</a-button>
+        </span> -->
+          <a-button @click="review(index)" type="link" v-if="record.deliver_status==='0'">审核</a-button>
+          <a-button @click="review(index)" type="link" v-if="record.deliver_status==='1'">查看</a-button>
         </div>
       </template>
     </a-table>
@@ -86,36 +84,22 @@
         :footer="null"
         @cancel="visible2 = false"
     >
-      <a-steps :current="select.status" style="padding: 50px">
+      <a-steps :current="parseInt(select.driver_status)" style="padding: 50px">
         <a-step title="确认信息无误"/>
-        <a-step title="开始配送"/>
+        <!-- <a-step title="开始配送"/> -->
         <a-step title="配送完成"/>
       </a-steps>
       <div class="content">
-        <div v-if="select.status === 0" class="check">
-          <p>送货司机： {{ select.driver }}</p>
-          <p>车牌号码： {{ select.number }}</p>
-          <p>加急处理： {{ select.urgent }}</p>
-          <p>注意事项： {{ select.care }}</p>
-          <p>客户电话： {{ select.phone }}</p>
-          <p>客户地址： {{ select.address }}</p>
-          <p>预计送达： {{ select.time }}</p>
+        <div v-if="select.deliver_status === '0'" class="check">
+          <p>送货司机： {{ select.driver_name }}</p>
+          <p>车牌号码： {{ select.vehicle_license_number }}</p>
+          <p>注意事项： {{ select.deliver_notice }}</p>
+          <p>客户地址： {{ select.deliver_address }}</p>
+          <p>预计送达： {{ select.formatted_time }}</p>
           <a-button type="danger" style="margin-right: 20px" :loading="loading" @click="agree">通过</a-button>
           <a-button @click="visible2 = false">不通过</a-button>
         </div>
-        <div v-if="select.status === 1">
-          <a-result
-              status="success"
-              title="Successfully passed the audit!"
-              >
-            <template #extra>
-              <a-button @click="service" key="console" type="primary">
-                已送达目的地
-              </a-button>
-            </template>
-          </a-result>
-        </div>
-        <div v-if="select.status === 2">
+        <div v-if="select.deliver_status === '1'">
           <a-result
               status="success"
               title="运输订单已成功送达"
@@ -135,114 +119,65 @@
 </template>
 
 <script>
+import service from "@/utils/request"
 function FindAllDistribution(){
-	var res_data = [
-		{
-			"id": "068c0ebf-ef3e-472d-98fd-a2360b12a124",
-			"did": "06366f4c-26dc-4b7a-a165-8532cf322bdd",
-			"vid": "0332ae3a-f993-481e-be96-d1e08c0bf9fd",
-			"driver": "test3",
-			"number": "京11223",
-			"phone": "test7_delivery",
-			"address": "test7_delivery",
-			"urgent": true,
-			"care": "冰柜冷藏, 注意易碎, 防止高温, ",
-			"time": "2022-06-30T02:44:07.232Z",
-			"status": 2
-		},
-		{
-			"id": "06cd6f4f-faf6-4345-8435-78baf919b3a5",
-			"did": "c2575c6c-f610-47cf-8ab7-bf7e1db3260c",
-			"vid": "d4962ec2-c46f-421b-9d58-8f6823c37308",
-			"driver": "li",
-			"number": "京A0006",
-			"phone": "123456789094234",
-			"address": "四川省乐山市某地",
-			"urgent": true,
-			"care": "冰柜冷藏, 防止高温, ",
-			"time": "2022-06-30T00:54:25.438Z",
-			"status": 2
-		},
-		{
-			"id": "99f56074-9702-49e7-b0af-c438ac5a289b",
-			"did": "06366f4c-26dc-4b7a-a165-8532cf322bdd",
-			"vid": "0332ae3a-f993-481e-be96-d1e08c0bf9fd",
-			"driver": "test3",
-			"number": "京11223",
-			"phone": "test7_delivery",
-			"address": "test7_delivery",
-			"urgent": true,
-			"care": "冰柜冷藏, 注意易碎, 防止高温, ",
-			"time": "2022-06-30T02:44:07.232Z",
-			"status": 0
-		},
-		{
-			"id": "ac68507e-8df9-452c-995a-91fa69d34da3",
-			"did": "c2575c6c-f610-47cf-8ab7-bf7e1db3260c",
-			"vid": "1c6c7597-c5f6-4a87-aa88-1b25a1f4120e",
-			"driver": "li",
-			"number": "京A0000",
-			"phone": "",
-			"address": "",
-			"urgent": false,
-			"care": "",
-			"time": "",
-			"status": 2
-		},
-		{
-			"id": "d7f2fa1a-adb6-42db-b57f-51ef2f63a7c7",
-			"did": "c2575c6c-f610-47cf-8ab7-bf7e1db3260c",
-			"vid": "a709f366-53f7-44bf-9df8-dd15e6258a90",
-			"driver": "li",
-			"number": "京A0000",
-			"phone": "2342",
-			"address": "北京",
-			"urgent": true,
-			"care": "注意易碎, ",
-			"time": "2022-06-01T07:57:42.124Z",
-			"status": 2
-		}
-	];
-	return res_data;
+	return service({
+		url:"/deliveries",
+		method:"get"
+		
+	})
 }
-function SaveDistribution(object){
-	console.log("save successfully");
+
+function SaveDistribution(value){
+	return service({
+		url:"/deliveries",
+		method:"put",
+		data:value
+	})
+}
+
+function FindAllDriver(){
+	return service({
+		url:"/drivers",
+		method:"get"
+	})
+}
+function FindAllVehicle(){
+	return service({
+		url:"/vehicles",
+		method:"get"
+	})
 }
 const columns = [
   {
     title: '司机',
-    dataIndex: 'driver',
-    scopedSlots: {customRender: 'driver'},
+    dataIndex: 'driver_name',
+    scopedSlots: {customRender: 'driver_name'},
   },
   {
     title: '车牌号',
-    dataIndex: 'number',
-    scopedSlots: {customRender: 'number'},
-  },
-  {
-    title: '客户电话',
-    dataIndex: 'phone',
-    scopedSlots: {customRender: 'phone'},
+    dataIndex: 'vehicle_license_number',
+    scopedSlots: {customRender: 'vehicle_license_number'},
   },
   {
     title: '客户地址',
-    dataIndex: 'address',
-    scopedSlots: {customRender: 'address'},
+    dataIndex: 'deliver_address',
+    scopedSlots: {customRender: 'deliver_address'},
   },
   {
     title: '注意事项',
-    dataIndex: 'care',
-    scopedSlots: {customRender: 'care'},
+    dataIndex: 'deliver_notice',
+    scopedSlots: {customRender: 'deliver_notice'},
   },
   {
     title: '预计送达',
-    dataIndex: 'time',
-    scopedSlots: {customRender: 'time'},
+    dataIndex: 'formatted_time',
+    scopedSlots: {customRender: 'formatted_time'},
   },
   {
     title: '当前状态',
-    dataIndex: 'status',
-    scopedSlots: {customRender: 'status'},
+    dataIndex: 'deliver_status',
+    scopedSlots: {customRender: 'deliver_status'},
   },
   {
     title: '操作',
@@ -256,6 +191,8 @@ export default {
     return {
       select: {},
       loading: false,
+			drivers: [],
+			vehicles: [],
       form: {
         cacheData: [],
         name: '',
@@ -267,36 +204,79 @@ export default {
         score: 12,
       },
       visible: false,
-      visible2: false,
+			visible2:false,
       data: [],
       columns,
       editingKey: '',
     };
   },
   mounted() {
+		FindAllDriver().then((res)=>{
+			this.drivers = res.data
+		})
+		FindAllVehicle().then((res)=>{
+			this.vehicles = res.data
+		})
     this.loadTableData()
   },
   methods: {
+		add0:function(m){
+			return m<10?'0'+m:m 
+		},
+		format:function(shijianchuo){
+			var time = new Date(shijianchuo);
+			var y = time.getFullYear();
+			var m = time.getMonth()+1;
+			var d = time.getDate();
+			var h = time.getHours();
+			var mm = time.getMinutes();
+			var s = time.getSeconds();
+			return y+'-'+this.add0(m)+'-'+this.add0(d)+' '+this.add0(h)+':'+this.add0(mm)+':'+this.add0(s);
+		},
+		getDriverById(id){
+			for(var i=0;i<this.drivers.length;i++){
+				if(this.drivers[i].driver_id == id){
+					return {
+						driver_name:this.drivers[i].driver_name
+					}
+				}
+			}
+		},
+		getVehicleById(id){
+			for(var i=0;i<this.vehicles.length;i++){
+				if(this.vehicles[i].vehicle_id == id){
+					return {
+						vehicle_license_number:this.vehicles[i].vehicle_license_number
+					}
+				}
+			}
+		},
     loadTableData() {
       this.loading = true
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-			this.data = FindAllDistribution();
-			setTimeout(() => {
-			  this.loading = false
-			}, 600)
+			FindAllDistribution().then((res)=>{
+				setTimeout(() => {
+				  this.loading = false
+					this.data = res.data
+					for(var i=0;i<this.data.length;i++){
+						this.data[i]["driver_name"] = this.getDriverById(this.data[i].d_driver_id).driver_name;
+						this.data[i]["vehicle_license_number"] = this.getVehicleById(this.data[i].d_vehicle_id).vehicle_license_number;
+						this.data[i]["formatted_time"] = this.format(this.data[i].deliver_time)
+					}
+					console.log(this.data)
+				}, 600)
+			})
       
     },
     submitForm() {
 			/***************************************************
 			// this is a replace to the request data
 			***************************************************/
-			SaveDistribution(this.form);
-			this.$message.success('司机信息提交成功');
-			this.visible = false
-			this.loadTableData()
-      
+			SaveDistribution(this.form).then((res)=>{
+				this.$message.success('信息提交成功');
+				this.visible = false
+				this.loadTableData()
+			})
+
     },
     handleChange(value, id, column) {
       const newData = [...this.data];
@@ -328,11 +308,10 @@ export default {
         this.cacheData = newCacheData;
       }
       this.editingKey = '';
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-      SaveDistribution(newData[index]);
-			this.$message.success("信息保存成功")
+      SaveDistribution(newData[index]).then((res)=>{
+				this.$message.success("信息保存成功")
+			})
+
     },
 
     cancel(id) {
@@ -352,20 +331,19 @@ export default {
     },
 
     agree() {
-      this.select.status = 1
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-      SaveDistribution(this.select)
+      this.select.deliver_status = '1'
+			SaveDistribution(this.select).then((res)=>{
+				this.$message.success("配送信息确认成功")
+			})
     },
 
-    service(){
-      this.select.status = 2
-			/***************************************************
-			// this is a replace to the request data
-			***************************************************/
-      SaveDistribution(this.select)
-    },
+   //  service(){
+   //    this.select.status = 2
+			// /***************************************************
+			// // this is a replace to the request data
+			// ***************************************************/
+   //    SaveDistribution(this.select)
+   //  },
 
   },
 };

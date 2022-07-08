@@ -15,17 +15,17 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("/Deliveries")
+@RequestMapping("/deliveries")
 public class DeliveryController {
     @Autowired
     private DeliveryService deliveryService;
     @PostMapping
-    public Result AddDeliveryInfo(Delivery delivery){
+    public Result AddDeliveryInfo(@RequestBody Delivery delivery){
         boolean flag = deliveryService.AddDeliveryInfo(delivery);
         return new Result(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
     @PutMapping
-    public Result UpdateDeliveryInfo(Delivery delivery){
+    public Result UpdateDeliveryInfo(@RequestBody Delivery delivery){
         boolean flag = deliveryService.UpdateDeliveryInfo(delivery);
         return new Result(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
