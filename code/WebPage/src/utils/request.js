@@ -1,5 +1,5 @@
 import request from "axios"
-import {message} from 'ant-design-vue'
+import { message } from 'ant-design-vue'
 import router from '../router/index'
 
 const token = localStorage.getItem("token")
@@ -8,20 +8,20 @@ const service = request.create({
     baseURL: 'http://localhost:8080',
     timeout: 50000,
     headers: {
-			'Authorization': token,
-			}
+        'Authorization': token,
+    }
 });
 
 service.interceptors.response.use(
     response => {
 
         const res = response.data;
-				console.log(res);
+        console.log(res);
         //判断response状态
         if (res.code != 200) {
-					console.log(res.status);
-					message.error('请求错误: ' + res.msg)
-				}
+            console.log(res.status);
+            message.error('请求错误: ' + res.msg)
+        }
         return res
     },
 
