@@ -15,7 +15,7 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("/companies")
+@RequestMapping("/companys")
 public class CompanyController {
     @Autowired
     private CompanyService companyService;

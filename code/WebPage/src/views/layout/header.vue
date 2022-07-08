@@ -77,7 +77,7 @@
 	        content: '点击确定将删除你在网站保留的登录信息！',
 	        onOk() {
 	          that.$router.push('/login')
-			  that.$store.commit('user/userLogout');
+						localStorage.removeItem("user_email")
 	        },
 			onabort(){
 				this.$router.go(0);

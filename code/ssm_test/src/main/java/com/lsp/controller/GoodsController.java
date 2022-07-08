@@ -15,7 +15,7 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping("/goods")
+@RequestMapping("/goodss")
 public class GoodsController {
     @Autowired
     private GoodsService goodsService;
