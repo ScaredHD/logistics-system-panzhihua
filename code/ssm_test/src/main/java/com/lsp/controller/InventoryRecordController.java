@@ -21,20 +21,12 @@ public class InventoryRecordController {
     private InventoryRecordService inventoryRecordService;
     @PostMapping
     public Result AddComment(@RequestBody InventoryRecord inventoryRecord){
-        boolean flag = inventoryRecordService.AddComment(inventoryRecord);
+        boolean flag = inventoryRecordService.AddInventoryRecordInfo(inventoryRecord);
         return new Result(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
-    @GetMapping("/comments")
-    public Result GetComment(@RequestBody InventoryRecord inventoryRecord){
-        InventoryRecord inventoryRecord1 = inventoryRecordService.GetComment(inventoryRecord);
-        Integer code = inventoryRecord1 != null ? Code.GET_OK : Code.GET_ERR;
-        String msg = inventoryRecord1 != null ? "":"No such record!";
-        return new Result(code,inventoryRecord1,msg);
-    }
-
-    @GetMapping("/{id}")
-    public Result GetByWarehouseId(@PathVariable String id){
-        List<InventoryRecord> inventoryRecordList = inventoryRecordService.getRecordByWarehouseId(id);
+    @GetMapping("/{ir_warehouse_id}")
+    public Result GetByWarehouseId(@PathVariable String ir_warehouse_id){
+        List<InventoryRecord> inventoryRecordList = inventoryRecordService.getRecordByWarehouseId(ir_warehouse_id);
         Integer code = inventoryRecordList != null ? Code.GET_OK : Code.GET_ERR;
         String msg = inventoryRecordList != null ? "":"GET ERROR:PLEASE RETRY!";
         return new Result(code,inventoryRecordList,msg);

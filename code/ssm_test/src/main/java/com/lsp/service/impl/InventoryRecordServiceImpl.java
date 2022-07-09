@@ -18,20 +18,15 @@ import java.util.List;
 public class InventoryRecordServiceImpl implements InventoryRecordService {
     @Autowired
     private InventoryRecordDao inventoryRecordDao;
-    public boolean AddComment(InventoryRecord inventoryRecord) {
-        inventoryRecordDao.comment(inventoryRecord);
+    @Override
+    public boolean AddInventoryRecordInfo(InventoryRecord inventoryRecord) {
+        inventoryRecordDao.save(inventoryRecord);
         return true;
     }
-
-    public InventoryRecord GetComment(InventoryRecord inventoryRecord) {
-        return inventoryRecordDao.getComment(inventoryRecord);
-    }
-
     public List<InventoryRecord> DisplayInventoryRecord() {
         return inventoryRecordDao.getAll();
     }
-
-    public List<InventoryRecord> getRecordByWarehouseId(String id){
-        return inventoryRecordDao.getRecordByWarehouseId(id);
+    public List<InventoryRecord> getRecordByWarehouseId(String ir_warehouse_id){
+        return inventoryRecordDao.getRecordByWarehouseId(ir_warehouse_id);
     }
 }
