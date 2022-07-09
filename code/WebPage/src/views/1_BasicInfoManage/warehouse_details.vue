@@ -65,6 +65,20 @@ function FindAllCommodity(){
 	});
 }
 function FindAllInventory(){
+<<<<<<< Updated upstream
+=======
+	return service({
+		url:"/inventorys",
+		method:"get"
+	})
+}
+function InAndOut(type, value){
+	if(type=="in")
+		value.record_type = "0"
+	else if(type=="out")
+		value.record_type = "1"
+	value.record_created_at = new Date().getTime()
+>>>>>>> Stashed changes
 	var temp_list = window.location.href.split("/")
 	return service({
 		url:"/inventoryRecords/"+temp_list[temp_list.length-1],
@@ -74,6 +88,29 @@ function FindAllInventory(){
 function InAndOut(){
 	return [];
 }
+<<<<<<< Updated upstream
+=======
+
+const columns = [
+  {
+    dataIndex: 'name',
+    key: 'name',
+    slots: {title: 'customTitle'},
+    scopedSlots: {customRender: 'name'},
+  },
+	{
+		title:"",
+		dataIndex:'',
+		key:'',
+	},
+  {
+    title: '库存数量',
+    dataIndex: 'record_count',
+    key: 'record_count',
+    scopedSlots: {customRender: 'record_count'},
+  },
+];
+>>>>>>> Stashed changes
 
 export default {
   data() {
