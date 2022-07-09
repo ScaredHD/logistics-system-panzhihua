@@ -1,72 +1,76 @@
 <template>
-	<div class="main">
-		<div class="header">
-		  <router-link to="/warehouse">
-		    <a-icon type="arrow-left" style="padding-right: 5px"/>
-		    返回上一页
-		  </router-link>
-		</div>
-		<div style="display: flex">
-		  <el-button class="editable-btn" @click="handleSubmit('in')">
-		    入库商品
-		  </el-button>
-		  <el-button class="editable-btn" @click="handleSubmit('out')">
-		    出库商品
-		  </el-button>
-		</div>
-		<el-table :data="data" stripe style="width: 100%">
-			<el-table-column prop="ir_goods_name" label="商品名称" />
-			<el-table-column prop="record_created_at" label="记录创建时间" />
-			<el-table-column prop="record_count" label="出入库商品数量" />
-			<el-table-column prop="record_type" label="出库|入库" />
-			<el-table-column prop="record_comments" label="出入库记录备注" />
-		</el-table>
-		<!--<a-table :loading="loading" :columns="columns" :data-source="data" rowKey="id">
-		  <a slot="name" slot-scope="text">{{ text }}</a>
-		  <span slot="customTitle"><a-icon type="smile-o"/> 商品名</span>
-		  <!-- <span slot="count" slot-scope="count">
-		    <a-tag color="#108ee9">{{ count }}</a-tag>
-		  </span> --
-		</a-table>-->
-		<a-modal
-		    title="入库 ｜ 出库"
-		    :closable="false"
-		    :visible="false"
-		    @ok="submit"
-		    @cancel="visible = false"
-		>
-		  <!-- <a-form-model :model="form">
-		    <a-form-model-item label="请选商品">
-		      <a-select v-model="selectIndex" placeholder="请选择入库的商品">
-		        <a-select-option :value="index" v-for="(item, index) in goodsList" :key="index">
-		          {{ item.name }}
-		        </a-select-option>
-		      </a-select>
-		    </a-form-model-item>
-		    <a-form-model-item label="商品数量">
-		      <a-input-number id="inputNumber" v-model="form.record_count" :min="1"/>
-		    </a-form-model-item>
-		    <a-form-model-item label="备注">
-		      <a-input :rows="4" v-model="form.record_comments" type="textarea"/>
-		    </a-form-model-item>
-		  </a-form-model> -->
-		</a-modal>
-	</div>
+  <div class="main">
+    <div class="header">
+      <router-link to="/warehouse">
+        <a-icon type="arrow-left" style="padding-right: 5px"/>
+        返回上一页
+      </router-link>
+    </div>
+    <div style="display: flex">
+      <a-button class="editable-btn" @click="handleSubmit('in')">
+        入库商品
+      </a-button>
+      <a-button class="editable-btn" @click="handleSubmit('out')">
+        出库商品
+      </a-button>
+      
+    </div>
+
+    <a-table :loading="loading" :columns="columns" :data-source="data" rowKey="id">
+      <a slot=".ir_goods_name" slot-scope="text">{{ text }}</a>
+      <span slot="customTitle"><a-icon type="smile-o"/> 商品名</span>
+      <!-- <span slot="record_comments" slot-scope="record_comments">
+        <a-tag color="#108ee9">{{ record_count }}</a-tag> -->
+      </span>
+    </a-table>
+
+    <a-modal
+        title="入库 ｜ 出库"
+        :closable="false"
+        :visible="visible"
+        @ok="submit"
+        @cancel="visible = false"
+    >
+      <a-form-model :model="form">
+        <a-form-model-item label="请选商品">
+          <a-select v-model="form.ir_goods_id" placeholder="请选择入库的商品">
+            <a-select-option :value="item.goods_id" v-for="(item, index) in commodityList" :key="index">
+              {{ item.goods_name }}
+            </a-select-option>
+          </a-select>
+        </a-form-model-item>
+        <a-form-model-item label="商品数量">
+          <a-input-number id="inputNumber" v-model="form.record_count" :min="1"/>
+        </a-form-model-item>
+        <a-form-model-item label="备注">
+          <a-input :rows="4" v-model="form.record_comments" type="textarea"/>
+        </a-form-model-item>
+      </a-form-model>
+    </a-modal>
+
+    <a-modal
+        title="出入库记录"
+        width="80%"
+        :visible="recordVisible"
+        :footer="null"
+        @cancel="recordVisible = false"
+    >
+      <InventoryRecords :warehouse-id="id"/>
+    </a-modal>
+
+  </div>
 </template>
 
 <script>
-// import {FindAllCommodity} from "../../api/commodity";
-// import {FindAllInventory, InAndOut} from "../../api/inventory";
+
 import service from "@/utils/request"
 function FindAllCommodity(){
 	return service({
 		url:"/goodss",
 		method:"get"
-	});
+	})
 }
 function FindAllInventory(){
-<<<<<<< Updated upstream
-=======
 	return service({
 		url:"/inventorys",
 		method:"get"
@@ -78,124 +82,137 @@ function InAndOut(type, value){
 	else if(type=="out")
 		value.record_type = "1"
 	value.record_created_at = new Date().getTime()
->>>>>>> Stashed changes
 	var temp_list = window.location.href.split("/")
 	return service({
-		url:"/inventoryRecords/"+temp_list[temp_list.length-1],
+		url:"/inventoryRecords/",
+		method:"post",
+		data:value
+	})
+}
+function InventoryRecords(){
+	return service({
+		url:"/inventoryRecords",
 		method:"get"
-	});
+	})
 }
-function InAndOut(){
-	return [];
-}
-<<<<<<< Updated upstream
-=======
 
 const columns = [
   {
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'ir_goods_name',
+    key: 'ir_goods_name',
     slots: {title: 'customTitle'},
-    scopedSlots: {customRender: 'name'},
+    scopedSlots: {customRender: '.ir_goods_name'},
   },
 	{
-		title:"",
-		dataIndex:'',
+		title:"出|入库类型",
+		dataIndex:'record_type_string',
+		key:'record_type_string',
+	},
+	{
+		title:"出|入库数量",
+		dataIndex:'record_count',
+		key:'',
+	},
+	{
+		title:"记录创建时间",
+		dataIndex:'record_created_at',
 		key:'',
 	},
   {
-    title: '库存数量',
-    dataIndex: 'record_count',
-    key: 'record_count',
-    scopedSlots: {customRender: 'record_count'},
+    title: '出入库备注',
+    dataIndex: 'record_comments',
+    key: 'record_comments',
   },
 ];
->>>>>>> Stashed changes
 
 export default {
+
+  components: {InventoryRecords},
+
   data() {
     return {
-			id: window.location.href.split("/")[window.location.href.split("/").length-1],
+      json_fields: {
+        "商品ID": "ir_goods_id",
+        "商品名称": "name",
+        "库存盘点数量": "record_count",
+      },
+      id: this.$route.params.id,
       loading: false,
       visible: false,
       recordVisible: false,
       selectIndex: 0,
       commodityVisible: false,
+      data: [],
       columns,
       commodityList: [],
       submitType: '',
-			goodsList: [],
-			data:[],
-			form:{
-				ir_warehouse_id:"",
-				ir_goods_id:"",
-				record_created_at:"",
-				record_count:50,
-				record_type:"",
-				record_comments:""
-			},
-			formatted_data: []
-		}
+      form: {
+        ir_warehouse_id: this.$route.params.id,
+        ir_goods_id: '',
+        name: '',
+        record_comments: '',
+        record_count: 50,
+      },
+    }
   },
-  mounted() {
-		FindAllCommodity().then((res)=>{
-			this.goodsList = res.data
-		})
-		this.loadTable()
-	},
-  methods: {
-		loadTable: function(){
-			FindAllInventory().then((res)=>{
-				setTimeout(()=>{
-					this.data = res.data
-					console.log(this.data)
-					for(var i=0;i<this.data.length;i++)
-					{
-						this.data[i].ir_goods_name = this.get_goods_name_by_id(this.data[i].ir_goods_id)
-					}
-					console.log(this.data);
-				}, 600)
 
-			})
-		},
-		handleSubmit:function(type){
-			
-		},
-		submit: function(){
-			
-		},
-		add0:function(m){
-			return m<10?'0'+m:m 
-		},
-		format:function(shijianchuo){
-			var time = new Date(shijianchuo);
-			var y = time.getFullYear();
-			var m = time.getMonth()+1;
-			var d = time.getDate();
-			var h = time.getHours();
-			var mm = time.getMinutes();
-			var s = time.getSeconds();
-			return y+'-'+this.add0(m)+'-'+this.add0(d)+' '+this.add0(h)+':'+this.add0(mm)+':'+this.add0(s);
-		},
-		get_goods_name_by_id(id){
-			for(var i=0;i<this.goodsList.length;i++){
-				if(this.goodsList[i].goods_id == id){
-					return this.goodsList[i].goods_name
+  mounted() {
+    this.loadData()
+    FindAllCommodity().then((res) => {
+      if (res.code==200) 
+			this.commodityList = res.data
+    })
+  },
+
+  methods: {
+		
+		getCommodityById(id){
+			for(var i=0;i<this.commodityList.length;i++){
+				if(this.commodityList[i].goods_id == id){
+					console.log("this.commodityList[i].goods_name:", this.commodityList[i].goods_name)
+					return {
+						
+						goods_name: this.commodityList[i].goods_name
+					}
 				}
 			}
 		},
-		submit() {
-      this.form.cid = this.commodityList[this.selectIndex].id
-      this.form.name = this.commodityList[this.selectIndex].name
+    loadData() {
+      this.loading = true
+      InventoryRecords(this.$route.params.id).then((res) => {
+        setTimeout(() => {
+          this.data = res.data
+          this.loading = false
+					for(var i=0;i<this.data.length;i++){
+						this.data[i].ir_goods_name = this.getCommodityById(this.data[i].ir_goods_id).goods_name
+						if(this.data[i].record_type=='0'){
+							this.data[i].record_type_string = "入库"
+						}else if(this.data[i].record_type=='1'){
+							this.data[i].record_type_string = "出库"
+						}
+					}
+        }, 500)
+      })
+    },
+
+    handleSubmit(type) {
+      this.submitType = type
+      this.visible = true
+    },
+
+    submit() {
+			console.log()
+      this.form.ir_goods_id = this.commodityList[this.selectIndex].goods_id
+      //this.form.name = this.commodityList[this.selectIndex].goods_name
       InAndOut(this.submitType, this.form).then((res) => {
-        if (res.status) this.$message.success("操作成功")
+        if (res.code==200) this.$message.success("操作成功")
         this.visible = false
         this.loadData()
       })
     },
-		
-		
-	},
+
+  }
+
 }
 </script>
 

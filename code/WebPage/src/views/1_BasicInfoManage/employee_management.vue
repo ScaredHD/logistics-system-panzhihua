@@ -4,7 +4,7 @@
       <a-icon type="plus"/>
       新增员工
     </el-button>
-    <a-table :loading="loading" :columns="columns" :data-source="data" bordered rowKey="id">
+    <a-table :loading="loading" :columns="columns" :data-source="data" bordered rowKey="employee_id">
       <template
           v-for="col in ['employee_name', 'employee_gender', 'employee_id_card','employee_tel', 'employee_address']"
           :slot="col"
@@ -15,7 +15,7 @@
               v-if="record.editable"
               style="margin: -5px 0"
               :value="text"
-              @change="e => handleChange(e.target.value, record.id, col)"
+              @change="e => handleChange(e.target.value, record.employee_id, col)"
           />
           <template v-else>
             {{ text }}
@@ -24,16 +24,16 @@
       </template>
       <template slot="operation" slot-scope="text, record, index">
         <div class="editable-row-operations">
-        <span v-if="record.editable">
-          <a @click="() => save(record.id, index)">保存</a>
-          <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.id)">
+					<!-- <span v-if="record.editable">
+          <a @click="() => save(record.employee_id, index)">保存</a>
+          <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.employee_id)">
             <a>取消</a>
           </a-popconfirm>
-        </span>
+					</span>
           <span v-else>
           <a :disabled="editingKey !== ''" @click="() => edit(record.id)">编辑</a>
-        </span>
-          <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm(record.id)">
+					</span> -->
+          <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm(record.employee_id)">
             <template slot="title">
               <p> 删除职员信息后将无法恢复，确定要删除吗？ </p>
             </template>
