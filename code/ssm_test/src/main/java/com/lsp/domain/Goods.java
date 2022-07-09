@@ -11,6 +11,15 @@ public class Goods {
     private String goods_name;
     private String goods_desc;
     private Integer goods_price;
+    private char goods_isvisible;
+
+    public char getGoods_isvisible() {
+        return goods_isvisible;
+    }
+
+    public void setGoods_isvisible(char goods_isvisible) {
+        this.goods_isvisible = goods_isvisible;
+    }
 
     @Override
     public String toString() {

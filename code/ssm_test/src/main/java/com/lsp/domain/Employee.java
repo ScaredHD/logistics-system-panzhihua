@@ -13,6 +13,15 @@ public class Employee {
     private String employee_id_card;
     private String employee_tel;
     private String employee_address;
+    private char employee_isvisible;
+
+    public char getEmployee_isvisible() {
+        return employee_isvisible;
+    }
+
+    public void setEmployee_isvisible(char employee_isvisible) {
+        this.employee_isvisible = employee_isvisible;
+    }
 
     @Override
     public String toString() {

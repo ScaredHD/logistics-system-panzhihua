@@ -11,6 +11,15 @@ public class Company {
     private String company_name;
     private String company_tel;
     private String company_contacts;
+    private char company_isvisible;
+
+    public char getCompany_isvisible() {
+        return company_isvisible;
+    }
+
+    public void setCompany_isvisible(char company_isvisible) {
+        this.company_isvisible = company_isvisible;
+    }
 
     @Override
     public String toString() {

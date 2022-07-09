@@ -11,6 +11,15 @@ public class Vehicle {
     private String vehicle_license_number;
     private String vehicle_type;
     private char vehicle_status;
+    private char vehicle_isvisible;
+
+    public char getVehicle_isvisible() {
+        return vehicle_isvisible;
+    }
+
+    public void setVehicle_isvisible(char vehicle_isvisible) {
+        this.vehicle_isvisible = vehicle_isvisible;
+    }
 
     @Override
     public String toString() {
