@@ -5,8 +5,9 @@ import router from '../router/index'
 const token = localStorage.getItem("token")
 
 const service = request.create({
-    baseURL: 'http://localhost:8080',
-    timeout: 50000,
+    // baseURL: 'http://162.14.80.178:8082/lsp',
+    baseURL: "http://127.0.0.1:8080/",
+		timeout: 50000,
     headers: {
         'Authorization': token,
     }

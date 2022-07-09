@@ -6,10 +6,12 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: "/home",
-		component: ()=>import("@/views/home/")
+		component: ()=>import("@/views/home/"),
+		meta: {title:"攀枝花物流管理系统"}
 	},{
 		path: "/about",
-		component: ()=>import("@/views/about/AboutUs.vue")
+		component: ()=>import("@/views/about/AboutUs.vue"),
+		meta: {title:"攀枝花物流管理系统"}
 	},{
         path: '/',
         component: Layout,

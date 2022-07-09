@@ -167,7 +167,7 @@
 
 <style>
 	body{
-		/* background: url("../../assets/bg_image.jpg"); */
+		background: url("../../assets/bg_image.jpg");
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 	}

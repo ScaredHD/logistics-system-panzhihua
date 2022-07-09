@@ -24,16 +24,16 @@
       </template>
       <template slot="operation" slot-scope="text, record, index">
         <div class="editable-row-operations">
-        <span v-if="record.editable">
+					<!-- <span v-if="record.editable">
           <a @click="() => save(record.id, index)">保存</a>
           <a-popconfirm title="Sure to cancel?" @confirm="() => cancel(record.id)">
             <a>取消</a>
           </a-popconfirm>
-        </span>
+					</span>
           <span v-else>
           <a :disabled="editingKey !== ''" @click="() => edit(record.id)">编辑</a>
-        </span>
-          <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm(record.id)">
+					</span> -->
+          <a-popconfirm placement="top" ok-text="Yes" cancel-text="No" @confirm="confirm(record.employee_id)">
             <template slot="title">
               <p> 删除职员信息后将无法恢复，确定要删除吗？ </p>
             </template>

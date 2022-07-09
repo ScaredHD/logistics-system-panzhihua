@@ -9,4 +9,5 @@ public interface InventoryRecordService {
     public InventoryRecord GetComment(InventoryRecord inventoryRecord);
     public List<InventoryRecord> DisplayInventoryRecord();
     public List<InventoryRecord> getRecordByWarehouseId(String id);
+    public boolean AddInventoryRecords(InventoryRecord inventoryRecord);
 }

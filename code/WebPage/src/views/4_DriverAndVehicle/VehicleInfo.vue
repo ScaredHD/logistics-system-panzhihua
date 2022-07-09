@@ -12,7 +12,7 @@
           <a-card hoverable>
             <template slot="actions" class="ant-card-actions">
               <a-tag :color=" item.vehicle_status ? 'orange': 'green'">{{ item.status ? '正在途中' : '正在休息' }}</a-tag>
-              <span>使用记录</span>
+              <!-- <span>使用记录</span> -->
             </template>
             <a-card-meta
                 :title="'车牌号：' + item.vehicle_license_number"

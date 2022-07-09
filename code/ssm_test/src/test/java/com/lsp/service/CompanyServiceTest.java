@@ -17,19 +17,19 @@ import java.util.List;
  * @version: 1.0
  * @Description:
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringConfig.class)
-public class CompanyServiceTest {
-    @Autowired
-    private  CompanyService companyService;
-    @Test
-    public void testSearchByCompanyName(){
-        List<Company> company = companyService.SearchByCompanyName("京东");
-        System.out.println(company);
-    }
-    @Test
-    public void testDisplayCompanyInfo(){
-        List<Company> company = companyService.DisplayCompanyInfo();
-        System.out.println(company);
-    }
-}
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = SpringConfig.class)
+//public class CompanyServiceTest {
+//    @Autowired
+//    private  CompanyService companyService;
+//    @Test
+//    public void testSearchByCompanyName(){
+//        List<Company> company = companyService.SearchByCompanyName("京东");
+//        System.out.println(company);
+//    }
+//    @Test
+//    public void testDisplayCompanyInfo(){
+//        List<Company> company = companyService.DisplayCompanyInfo();
+//        System.out.println(company);
+//    }
+//}

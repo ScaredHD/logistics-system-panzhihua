@@ -23,6 +23,11 @@ public class InventoryRecordServiceImpl implements InventoryRecordService {
         return true;
     }
 
+    public boolean AddInventoryRecords(InventoryRecord inventoryRecord){
+        inventoryRecordDao.save(inventoryRecord);
+        return true;
+    }
+
     public InventoryRecord GetComment(InventoryRecord inventoryRecord) {
         return inventoryRecordDao.getComment(inventoryRecord);
     }
@@ -34,4 +39,6 @@ public class InventoryRecordServiceImpl implements InventoryRecordService {
     public List<InventoryRecord> getRecordByWarehouseId(String id){
         return inventoryRecordDao.getRecordByWarehouseId(id);
     }
+
+
 }

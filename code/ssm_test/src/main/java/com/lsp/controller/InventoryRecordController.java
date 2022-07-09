@@ -21,7 +21,7 @@ public class InventoryRecordController {
     private InventoryRecordService inventoryRecordService;
     @PostMapping
     public Result AddComment(@RequestBody InventoryRecord inventoryRecord){
-        boolean flag = inventoryRecordService.AddComment(inventoryRecord);
+        boolean flag = inventoryRecordService.AddInventoryRecords(inventoryRecord);
         return new Result(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
     @GetMapping("/comments")

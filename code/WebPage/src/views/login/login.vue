@@ -122,7 +122,9 @@ export default {
                   type: "success",
                   showClose: true,
                 });
+								
                 this.$router.replace("/");
+								this.$router.go(0);
               } else {
                 Message({
                   message: "账户名或密码错误",
