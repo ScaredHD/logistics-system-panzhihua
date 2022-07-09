@@ -24,6 +24,11 @@ public class VehicleController {
         boolean flag = vehicleService.AddVehicleInfo(vehicle);
         return new Result(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
     }
+    @DeleteMapping("/{vehicle_id}")
+    public Result DeleteById(@PathVariable Integer vehicle_id) {
+        boolean flag = vehicleService.DeleteById(vehicle_id);
+        return new Result(flag?Code.DELETE_OK:Code.DELETE_ERR,flag);
+    }
     @GetMapping("/{vehicle_id}")
     public Result GetById(@PathVariable Integer vehicle_id) {
         Vehicle vehicle = vehicleService.GetById(vehicle_id);

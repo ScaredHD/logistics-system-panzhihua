@@ -9,5 +9,6 @@ import java.util.List;
 public interface VehicleService {
     public boolean AddVehicleInfo(Vehicle vehicle);
     public Vehicle GetById(Integer vehicle_id);
+    public boolean DeleteById(Integer vehicle_id);
     public List<Vehicle> DisplayVehicleInfo();
 }

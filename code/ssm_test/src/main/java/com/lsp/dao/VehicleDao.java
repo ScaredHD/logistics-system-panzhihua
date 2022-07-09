@@ -1,6 +1,7 @@
 package com.lsp.dao;
 
 import com.lsp.domain.Vehicle;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -15,6 +16,8 @@ public interface VehicleDao {
             "vehicle_type = #{vehicle_type},vehicle_status = #{vehicle_status} " +
             "where vehicle_id = #{vehicle_id}")
     public void update(Vehicle vehicle);
+    @Delete("delete from vehicle where vehicle_id = #{vehicle_id}")
+    public void delete(Integer vehicle_id);
     @Select("select * from vehicle where vehicle_id = #{vehicle_id}")
     public Vehicle getById(Integer vehicle_id);
     @Select("select * from vehicle")

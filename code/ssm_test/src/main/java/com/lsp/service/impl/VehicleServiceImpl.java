@@ -27,6 +27,11 @@ public class VehicleServiceImpl implements VehicleService {
         return vehicleDao.getById(vehicle_id);
     }
 
+    public boolean DeleteById(Integer vehicle_id) {
+        vehicleDao.delete(vehicle_id);
+        return true;
+    }
+
     public List<Vehicle> DisplayVehicleInfo() {
         return vehicleDao.getAll();
     }
