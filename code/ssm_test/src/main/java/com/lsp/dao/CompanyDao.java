@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface CompanyDao {
     @Insert("insert into company (company_name,company_tel,company_contacts,company_isvisible) " +
-            "values(#{company_name},#{company_tel},#{company_contacts},company_isvisible)")
+            "values(#{company_name},#{company_tel},#{company_contacts},#{company_isvisible})")
     public void save(Company company);
     @Update("update company set company_name = #{company_name},company_tel = #{company_tel},company_contacts = #{company_contacts}," +
             "company_isvisible = #{company_isvisible} where company_id = #{company_id}")

@@ -19,6 +19,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyDao companyDao;
     public boolean AddCompanyInfo(Company company) {
+        company.setCompany_isvisible('1');
         companyDao.save(company);
         return true;
     }
