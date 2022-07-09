@@ -20,7 +20,7 @@ public class InventoryRecordController {
     @Autowired
     private InventoryRecordService inventoryRecordService;
     @PostMapping
-    public Result AddComment(@RequestBody InventoryRecord inventoryRecord){
+    public Result AddInventoryRecordInfo(@RequestBody InventoryRecord inventoryRecord){
         boolean flag = inventoryRecordService.AddInventoryRecordInfo(inventoryRecord);
         return new Result(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
